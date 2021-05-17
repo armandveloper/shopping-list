@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import { MdShoppingCart } from 'react-icons/md';
 import Nav from '../ui/Nav';
 import logo from '../../assets/img/logo.svg';
+import { useDispatch } from 'react-redux';
+import { showSidebarRight } from '../../redux/actions/ui';
 
 const StyledSidebar = styled.aside`
-	background-color: #000;
+	background-color: var(--color-bg-2);
 	height: 100%;
 	padding: 2rem 0;
 	width: 100%;
@@ -38,13 +40,19 @@ const CartButton = styled.button`
 `;
 
 function Sidebar() {
+	const dispatch = useDispatch();
+
+	const handleShowSidebar = () => {
+		dispatch(showSidebarRight());
+	};
+
 	return (
 		<StyledSidebar>
 			<Link to="/" aria-label="Go Home">
 				<Logo src={logo} width="40" height="40" />
 			</Link>
 			<Nav />
-			<CartButton>
+			<CartButton onClick={handleShowSidebar}>
 				<MdShoppingCart size={20} color="#fff" />
 			</CartButton>
 		</StyledSidebar>

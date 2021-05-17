@@ -21,7 +21,8 @@ const NavItem = styled(NavLink)`
 		transform: translateY(25%);
 		transition: background-color 0.3s ease;
 	}
-	&.current::before {
+	&.current::before,
+	&:hover::before {
 		background-color: var(--color-primary);
 	}
 `;

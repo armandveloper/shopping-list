@@ -3,6 +3,8 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
   :root {
     --color-bg: #121212;
+    --color-bg-2: #212121;
+    --color-bg-3: #424242;
     --color-text: #fff;
     --color-primary: #F9A109;
   }
@@ -20,7 +22,8 @@ const GlobalStyles = createGlobalStyle`
     background-color: var(--color-bg);
     color: var(--color-text);
     font-size: 1.6rem;
-    font-family: system-ui, sans-serif;
+    font-family: 'Quicksand', sans-serif;
+    line-height: 1.4;
     height: 100%;
     margin: 0;
   }
