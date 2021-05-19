@@ -28,6 +28,11 @@ const uiReducer = (state = initialState, action: Action) => {
 				...state,
 				showSidebarRight: false,
 			};
+		case types.UI_TOGGLE_SIDEBAR_RIGHT:
+			return {
+				...state,
+				showSidebarRight: !state.showSidebarRight,
+			};
 		default:
 			return state;
 	}

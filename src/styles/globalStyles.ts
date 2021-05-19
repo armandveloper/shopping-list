@@ -7,6 +7,7 @@ const GlobalStyles = createGlobalStyle`
     --color-bg-3: #424242;
     --color-text: #fff;
     --color-primary: #F9A109;
+    --color-secondary: #56CCF2;
   }
   html {
     box-sizing: border-box;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { sidebarRightStyles } from '../../styles/mixins';
+import { sidebarRightPadding, sidebarRightStyles } from '../../styles/mixins';
 import AddItemForm from './AddItemForm';
 import {
 	slideInRight,
@@ -14,7 +14,8 @@ interface Props {
 }
 
 const StyledAddItem = styled.div<Props>`
-	${sidebarRightStyles}
+	${sidebarRightStyles};
+	${sidebarRightPadding};
 	display: flex;
 	flex-direction: column;
 	animation: ${({ show }) =>
@@ -23,7 +24,7 @@ const StyledAddItem = styled.div<Props>`
 	@media (min-width: 56.25em) {
 		padding-top: 3.4rem;
 		animation: ${({ show }) => (show ? slideInRight : slideOutRight)} 0.4s
-			ease;
+			ease forwards;
 	}
 	> * {
 		flex-shrink: 0;

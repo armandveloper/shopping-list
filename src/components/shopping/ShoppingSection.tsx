@@ -7,7 +7,7 @@ import ShoppingItem from './ShoppingItem';
 // }
 
 const StyledShoppingSection = styled.section`
-	margin-bottom: 2.6rem;
+	margin-bottom: 1.6rem;
 `;
 
 const Headline = styled.h2`

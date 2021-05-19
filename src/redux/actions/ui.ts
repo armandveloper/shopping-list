@@ -15,3 +15,7 @@ export const showSidebarRight = () => ({
 export const hideSidebarRight = () => ({
 	type: types.UI_HIDE_SIDEBAR_RIGHT,
 });
+
+export const toggleSidebarRight = () => ({
+	type: types.UI_TOGGLE_SIDEBAR_RIGHT,
+});

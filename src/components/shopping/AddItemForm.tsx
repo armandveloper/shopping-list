@@ -48,8 +48,16 @@ const Field = styled.div`
 const Actions = styled.div`
 	padding: 1rem 0;
 	text-align: center;
+	@media (min-width: 37.5em) {
+		text-align: right;
+	}
 	@media (min-width: 56.25em) {
+		text-align: center;
+
 		padding: 3rem 0;
+	}
+	${Button}:first-child {
+		margin-right: 2rem;
 	}
 `;
 

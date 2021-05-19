@@ -1,8 +1,13 @@
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import Button from '../ui/Button';
-import bottle from '../../assets/img/source.svg';
 import { showAddItem } from '../../redux/actions/ui';
+import Button from '../ui/Button';
+import { sidebarRightPadding } from '../../styles/mixins';
+import bottle from '../../assets/img/source.svg';
+
+const Container = styled.div`
+	${sidebarRightPadding}
+`;
 
 const StyledBanner = styled.div`
 	background: #80485b url(${bottle}) left top -0.5rem / contain no-repeat;
@@ -29,14 +34,16 @@ function Banner() {
 	};
 
 	return (
-		<StyledBanner>
-			<div>
-				<p>Didn't find what you need?</p>
-				<Button onClick={handleAddItem} color="black">
-					Add Item
-				</Button>
-			</div>
-		</StyledBanner>
+		<Container>
+			<StyledBanner>
+				<div>
+					<p>Didn't find what you need?</p>
+					<Button onClick={handleAddItem} color="black">
+						Add Item
+					</Button>
+				</div>
+			</StyledBanner>
+		</Container>
 	);
 }
 

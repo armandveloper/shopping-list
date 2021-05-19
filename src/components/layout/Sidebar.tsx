@@ -4,7 +4,7 @@ import { MdShoppingCart } from 'react-icons/md';
 import Nav from '../ui/Nav';
 import logo from '../../assets/img/logo.svg';
 import { useDispatch } from 'react-redux';
-import { showSidebarRight } from '../../redux/actions/ui';
+import { toggleSidebarRight } from '../../redux/actions/ui';
 
 const StyledSidebar = styled.aside`
 	background-color: var(--color-bg-2);
@@ -42,8 +42,8 @@ const CartButton = styled.button`
 function Sidebar() {
 	const dispatch = useDispatch();
 
-	const handleShowSidebar = () => {
-		dispatch(showSidebarRight());
+	const handleToggleSidebar = () => {
+		dispatch(toggleSidebarRight());
 	};
 
 	return (
@@ -52,7 +52,7 @@ function Sidebar() {
 				<Logo src={logo} width="40" height="40" />
 			</Link>
 			<Nav />
-			<CartButton onClick={handleShowSidebar}>
+			<CartButton onClick={handleToggleSidebar}>
 				<MdShoppingCart size={20} color="#fff" />
 			</CartButton>
 		</StyledSidebar>
