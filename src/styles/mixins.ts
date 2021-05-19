@@ -8,12 +8,13 @@ export const sidebarRightStyles = css`
 	padding: 2.5rem 1.4rem 0 2rem;
 	width: 100%;
 	overflow-y: auto;
+	transition: transform 0.4s ease;
 	@media (min-width: 56.25em) {
 		padding: 4.2rem 3.2rem 0 4.8rem;
 	}
-	@media (max-width: 56.25em) {
+	@media (max-width: 56.24em) {
 		&.show {
-			grid-column: 1;
+			transform: translate3d(-100%, 0, 0);
 		}
 	}
 `;

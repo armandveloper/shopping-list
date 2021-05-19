@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../redux/store';
+import ShoppingContent from '../shopping/ShoppingContent';
 import ShoppingSidebar from './ShoppingSidebar';
 import AddItem from '../shopping/AddItem';
 
@@ -8,7 +9,7 @@ const StyledContent = styled.main`
 	height: 100%;
 	overflow: hidden;
 	display: grid;
-	grid-template-columns: 100% 39rem;
+	grid-template-columns: 100% 100%;
 	@media (min-width: 56.25em) {
 		grid-template-columns: 1fr 39rem;
 	}
@@ -19,11 +20,9 @@ function Content() {
 
 	return (
 		<StyledContent>
-			<div>
-				<p>Hola</p>
-			</div>
+			<ShoppingContent />
 			<ShoppingSidebar />
-			{ui.showAddItem && <AddItem />}
+			<AddItem show={ui.showAddItem} />
 		</StyledContent>
 	);
 }

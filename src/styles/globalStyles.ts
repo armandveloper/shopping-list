@@ -27,6 +27,14 @@ const GlobalStyles = createGlobalStyle`
     height: 100%;
     margin: 0;
   }
+  a {
+    text-decoration: none;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
   #root {
     height: 100%;
   }
@@ -41,6 +49,18 @@ const GlobalStyles = createGlobalStyle`
     @media (min-width: 56.25em) {
       grid-template-columns: 9.4rem 1fr;
 	  }
+  }
+  @media (any-hover: hover) {
+    ::-webkit-scrollbar {
+      width: 0.4rem;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: var(--color-bg-2);
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--color-primary);
+      border-radius: 0.4rem;
+    }
   }
 `;
 

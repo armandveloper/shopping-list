@@ -1,16 +1,33 @@
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { RootState } from '../../redux/store';
 import { sidebarRightStyles } from '../../styles/mixins';
 import AddItemForm from './AddItemForm';
+import {
+	slideInRight,
+	slideOutRight,
+	showAddItemAnimation,
+	hideAddItemAnimation,
+} from '../../styles/animations';
 
-const StyledAddItem = styled.div`
+interface Props {
+	show: boolean;
+}
+
+const StyledAddItem = styled.div<Props>`
 	${sidebarRightStyles}
-	@media (min-width: 56.25em) {
-		padding-top: 3.4rem;
-	}
 	display: flex;
 	flex-direction: column;
+	animation: ${({ show }) =>
+			show ? showAddItemAnimation : hideAddItemAnimation}
+		0.4s ease forwards;
+	@media (min-width: 56.25em) {
+		padding-top: 3.4rem;
+		animation: ${({ show }) => (show ? slideInRight : slideOutRight)} 0.4s
+			ease;
+	}
+	> * {
+		flex-shrink: 0;
+	}
 `;
 
 const Title = styled.h2`
@@ -20,11 +37,21 @@ const Title = styled.h2`
 	margin-bottom: 3rem;
 `;
 
-function AddItem() {
-	const ui = useSelector((state: RootState) => state.ui);
+function AddItem({ show }: Props) {
+	const [shouldRender, setRender] = useState(show);
+
+	useEffect(() => {
+		if (show) setRender(true);
+	}, [show]);
+
+	const handleAnimationEnd = () => {
+		if (!show) setRender(false);
+	};
+
+	if (!shouldRender) return null;
 
 	return (
-		<StyledAddItem className={ui.showAddItem ? 'show' : ''}>
+		<StyledAddItem onAnimationEnd={handleAnimationEnd} show={show}>
 			<Title>Add a new Item</Title>
 			<AddItemForm />
 		</StyledAddItem>
