@@ -6,6 +6,7 @@ export interface RootState {
 	ui: {
 		showAddItem: boolean;
 		showSidebarRight: boolean;
+		showItemInfo: boolean;
 	};
 }
 

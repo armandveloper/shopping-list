@@ -4,6 +4,7 @@ import types from '../types';
 const initialState = {
 	showAddItem: false,
 	showSidebarRight: false,
+	showItemInfo: false,
 };
 
 const uiReducer = (state = initialState, action: Action) => {
@@ -32,6 +33,16 @@ const uiReducer = (state = initialState, action: Action) => {
 			return {
 				...state,
 				showSidebarRight: !state.showSidebarRight,
+			};
+		case types.UI_SHOW_ITEM_INFO:
+			return {
+				...state,
+				showItemInfo: true,
+			};
+		case types.UI_HIDE_ITEM_INFO:
+			return {
+				...state,
+				showItemInfo: false,
 			};
 		default:
 			return state;

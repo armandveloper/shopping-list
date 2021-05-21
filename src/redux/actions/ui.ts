@@ -19,3 +19,11 @@ export const hideSidebarRight = () => ({
 export const toggleSidebarRight = () => ({
 	type: types.UI_TOGGLE_SIDEBAR_RIGHT,
 });
+
+export const showItemInfo = () => ({
+	type: types.UI_SHOW_ITEM_INFO,
+});
+
+export const hideItemInfo = () => ({
+	type: types.UI_HIDE_ITEM_INFO,
+});

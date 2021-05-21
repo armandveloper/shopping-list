@@ -4,6 +4,7 @@ import { RootState } from '../../redux/store';
 import ShoppingContent from '../shopping/ShoppingContent';
 import ShoppingSidebar from './ShoppingSidebar';
 import AddItem from '../shopping/AddItem';
+import ItemInfo from '../shopping/ItemInfo';
 
 const StyledContent = styled.main`
 	height: 100%;
@@ -23,6 +24,7 @@ function Content() {
 			<ShoppingContent />
 			<ShoppingSidebar />
 			<AddItem show={ui.showAddItem} />
+			<ItemInfo show={ui.showItemInfo} />
 		</StyledContent>
 	);
 }

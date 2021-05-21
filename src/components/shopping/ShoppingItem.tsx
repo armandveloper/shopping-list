@@ -1,5 +1,8 @@
-import { MdAdd } from 'react-icons/md';
+import { MouseEvent } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { MdAdd } from 'react-icons/md';
+import { showItemInfo } from '../../redux/actions/ui';
 
 const StyledShoppingItem = styled.div`
 	background-color: var(--color-bg-3);
@@ -22,10 +25,24 @@ const AddListButton = styled.button`
 `;
 
 function ShoppingItem() {
+	const dispatch = useDispatch();
+
+	const viewDetails = () => {
+		dispatch(showItemInfo());
+	};
+
+	const addCart = (e: MouseEvent) => {
+		e.stopPropagation();
+	};
+
 	return (
-		<StyledShoppingItem>
+		<StyledShoppingItem onClick={viewDetails}>
 			Avocado
-			<AddListButton type="button" title="Add Item to the list">
+			<AddListButton
+				type="button"
+				title="Add Item to the list"
+				onClick={addCart}
+			>
 				<MdAdd size={24} color="currentColor" />
 			</AddListButton>
 		</StyledShoppingItem>
