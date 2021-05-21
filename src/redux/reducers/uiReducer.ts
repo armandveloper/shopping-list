@@ -5,6 +5,7 @@ const initialState = {
 	showAddItem: false,
 	showSidebarRight: false,
 	showItemInfo: false,
+	isDialogOpen: false,
 };
 
 const uiReducer = (state = initialState, action: Action) => {
@@ -43,6 +44,16 @@ const uiReducer = (state = initialState, action: Action) => {
 			return {
 				...state,
 				showItemInfo: false,
+			};
+		case types.UI_OPEN_DIALOG:
+			return {
+				...state,
+				isDialogOpen: true,
+			};
+		case types.UI_CLOSE_DIALOG:
+			return {
+				...state,
+				isDialogOpen: false,
 			};
 		default:
 			return state;

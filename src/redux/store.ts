@@ -7,6 +7,7 @@ export interface RootState {
 		showAddItem: boolean;
 		showSidebarRight: boolean;
 		showItemInfo: boolean;
+		isDialogOpen: boolean;
 	};
 }
 

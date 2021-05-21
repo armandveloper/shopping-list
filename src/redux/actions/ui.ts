@@ -27,3 +27,11 @@ export const showItemInfo = () => ({
 export const hideItemInfo = () => ({
 	type: types.UI_HIDE_ITEM_INFO,
 });
+
+export const openDialog = () => ({
+	type: types.UI_OPEN_DIALOG,
+});
+
+export const closeDialog = () => ({
+	type: types.UI_CLOSE_DIALOG,
+});

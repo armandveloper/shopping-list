@@ -37,3 +37,21 @@ export const hideAddItemAnimation = keyframes`
     transform: translate3d(0, 0, 0);
   }
 `;
+
+export const slideInUp = keyframes`
+  from {
+    transform: translate3d(0, -4rem, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+`;
+
+export const slideOutUp = keyframes`
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -100%, 0);
+  }
+`;

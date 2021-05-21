@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface ButtonProps {
-	color?: 'primary' | 'secondary' | 'black';
+	color?: 'primary' | 'secondary' | 'danger' | 'black';
 	size?: 'lg';
 	roundedLeft?: boolean;
 }
@@ -9,6 +9,7 @@ interface ButtonProps {
 const colors = {
 	primary: 'var(--color-primary)',
 	secondary: 'var(--color-secondary)',
+	danger: 'var(--color-danger)',
 	black: 'var(--color-bg)',
 };
 
