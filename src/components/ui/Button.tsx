@@ -4,6 +4,7 @@ interface ButtonProps {
 	color?: 'primary' | 'secondary' | 'danger' | 'black';
 	size?: 'lg';
 	roundedLeft?: boolean;
+	full?: boolean;
 }
 
 const colors = {
@@ -28,6 +29,11 @@ const Button = styled.button.attrs((props) => ({
 	font-weight: 700;
 	padding: 1.1rem 2rem;
 	text-align: center;
+	width: ${({ full }) => (full ? '100%' : null)};
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.6;
+	}
 `;
 
 export default Button;

@@ -30,6 +30,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
   }
   a {
+    color: #90caf9;
     text-decoration: none;
   }
   ul {
@@ -39,10 +40,6 @@ const GlobalStyles = createGlobalStyle`
   }
   #root {
     height: 100%;
-  }
-  .app {
-    height: 100%;
-    overflow: hidden;
   }
   .layout {
     height: 100%;
@@ -63,6 +60,9 @@ const GlobalStyles = createGlobalStyle`
       background-color: var(--color-primary);
       border-radius: 0.4rem;
     }
+  }
+  .no-margin {
+    margin: 0;
   }
 `;
 

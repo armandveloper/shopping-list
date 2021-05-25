@@ -2,13 +2,22 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from './reducers/rootReducer';
 
+export interface UiState {
+	showAddItem: boolean;
+	showSidebarRight: boolean;
+	showItemInfo: boolean;
+	isDialogOpen: boolean;
+	isLoading: boolean;
+}
+
+export interface AuthState {
+	checking: boolean;
+	uid?: string;
+}
+
 export interface RootState {
-	ui: {
-		showAddItem: boolean;
-		showSidebarRight: boolean;
-		showItemInfo: boolean;
-		isDialogOpen: boolean;
-	};
+	ui: UiState;
+	auth: AuthState;
 }
 
 const composeEnhancers =

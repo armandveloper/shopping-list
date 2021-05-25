@@ -6,6 +6,7 @@ const initialState = {
 	showSidebarRight: false,
 	showItemInfo: false,
 	isDialogOpen: false,
+	isLoading: false,
 };
 
 const uiReducer = (state = initialState, action: Action) => {
@@ -55,6 +56,11 @@ const uiReducer = (state = initialState, action: Action) => {
 				...state,
 				isDialogOpen: false,
 			};
+		case types.UI_IS_LOADING:
+			return { ...state, isLoading: true };
+		case types.UI_IS_NOT_LOADING:
+			return { ...state, isLoading: false };
+
 		default:
 			return state;
 	}

@@ -55,3 +55,12 @@ export const slideOutUp = keyframes`
     transform: translate3d(0, -100%, 0);
   }
 `;
+
+export const spin = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;

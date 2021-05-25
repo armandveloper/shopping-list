@@ -35,3 +35,11 @@ export const openDialog = () => ({
 export const closeDialog = () => ({
 	type: types.UI_CLOSE_DIALOG,
 });
+
+export const setIsLoading = () => ({
+	type: types.UI_IS_LOADING,
+});
+
+export const unsetIsLoading = () => ({
+	type: types.UI_IS_NOT_LOADING,
+});
