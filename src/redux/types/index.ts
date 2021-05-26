@@ -16,6 +16,8 @@ const types = {
 	AUTH_SIGNIN: '[AUTH] Signin',
 	AUTH_LOGOUT: '[AUTH] Logout',
 	AUTH_CHECKING_FINISH: '[AUTH] Checking for an authenticated user finish',
+	SHOPPING_SAVE_CATEGORIES: '[SHOPPING] Save the user categories',
+	SHOPPING_ADD_CATEGORY: '[SHOPPING] Add a new category',
 };
 
 export default types;

@@ -15,9 +15,15 @@ export interface AuthState {
 	uid?: string;
 }
 
+export interface ShoppingState {
+	items: any[];
+	categories: any[];
+}
+
 export interface RootState {
 	ui: UiState;
 	auth: AuthState;
+	shopping: ShoppingState;
 }
 
 const composeEnhancers =

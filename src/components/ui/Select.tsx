@@ -1,11 +1,16 @@
 import { useState } from 'react';
-import {
-	GroupTypeBase,
-	OptionsType,
-	OptionTypeBase,
-	StylesConfig,
-} from 'react-select';
+import { useDispatch, useSelector } from 'react-redux';
+import { GroupTypeBase, OptionTypeBase, StylesConfig } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
+import { createCategory } from '../../redux/actions/shopping';
+import { RootState } from '../../redux/store';
+
+// Event
+
+// interface SelectProps {
+//   onChange(e: ChangeEvent): void;
+//   value: string;
+// }
 
 interface SelectState extends GroupTypeBase<OptionTypeBase> {
 	isLoading: boolean;
@@ -16,16 +21,18 @@ const createOption = (label: string) => ({
 	value: label.toLowerCase().replace(/\W/g, ''),
 });
 
-const defaultOptions: OptionsType<OptionTypeBase> = [
-	createOption('One'),
-	createOption('Two'),
-	createOption('Three'),
-];
-
 function Select() {
+	const dispatch = useDispatch();
+
+	const { uid } = useSelector((state: RootState) => state.auth);
+
+	const { categories } = useSelector((state: RootState) => state.shopping);
+
 	const [state, setState] = useState<SelectState>({
 		isLoading: false,
-		options: defaultOptions,
+		options: categories.map((category: any) =>
+			createOption(category.category)
+		),
 		value: undefined,
 	});
 
@@ -41,19 +48,23 @@ function Select() {
 
 	const handleCreate = (inputValue: any) => {
 		setState({ ...state, isLoading: true });
-		console.group('Option created');
-		console.log('Wait a moment...');
-		setTimeout(() => {
-			const { options } = state;
-			const newOption = createOption(inputValue);
-			console.log(newOption);
-			console.groupEnd();
-			setState({
-				isLoading: false,
-				options: [...options, newOption],
-				value: newOption,
-			});
-		}, 1000);
+		const newOption = createOption(inputValue);
+		dispatch(
+			createCategory(
+				{
+					category: newOption.label,
+					lowercase: newOption.value,
+					user: uid,
+				},
+				() => {
+					setState({
+						isLoading: false,
+						options: [...state.options, newOption],
+						value: newOption,
+					});
+				}
+			)
+		);
 	};
 
 	type IsMulti = false;
