@@ -1,11 +1,22 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
+import { RootState } from '../../redux/store';
 import { hideAddItem } from '../../redux/actions/ui';
+import {
+	createItem,
+	hideItem,
+	startUpdateItem,
+} from '../../redux/actions/shopping';
 import Button from '../ui/Button';
 import Field from '../Form/Field';
 import Select from '../ui/Select';
+import Loader from '../ui/Loader';
+
+interface AddItemFormProps {
+	item: any | null;
+}
 
 const Form = styled.form`
 	flex: 1;
@@ -42,20 +53,46 @@ const ItemSchema = Yup.object().shape({
 	note: Yup.string(),
 	image: Yup.string().url('A valid image url is required'),
 	category: Yup.string().required('The item category is required'),
+	user: Yup.string().required('The user id is required'),
 });
 
-function AddItemForm() {
+function AddItemForm({ item }: AddItemFormProps) {
+	const { isLoading } = useSelector((state: RootState) => state.ui);
+
+	const { uid } = useSelector((state: RootState) => state.auth);
+
+	const { categories } = useSelector((state: RootState) => state.shopping);
+
 	const dispatch = useDispatch();
 
 	const formik = useFormik({
-		initialValues: initialForm,
+		initialValues: item || { ...initialForm, user: uid },
 		validationSchema: ItemSchema,
 		onSubmit: (values) => {
-			console.log(values);
+			// Crear el item
+			if (!item) {
+				dispatch(
+					createItem(values, () => {
+						formik.resetForm();
+					})
+				);
+				return;
+			}
+			// Actualizar el item
+			dispatch(
+				startUpdateItem(values, () => {
+					handleCancel();
+				})
+			);
 		},
 	});
 
+	const handleSelectChange = (value: string) => {
+		formik.setFieldValue('category', value);
+	};
+
 	const handleCancel = () => {
+		dispatch(hideItem());
 		dispatch(hideAddItem());
 	};
 
@@ -102,8 +139,13 @@ function AddItemForm() {
 				</Field>
 				<Field>
 					<label htmlFor="category">Category</label>
-					{/* <Select onChange={formik.handleChange} value={formik.values.category} /> */}
-					<Select />
+					<Select
+						value={formik.values.category}
+						options={categories.map(
+							(category: any) => category.category
+						)}
+						onChange={handleSelectChange}
+					/>
 					{formik.errors.category && formik.touched.category ? (
 						<div className="error">{formik.errors.category}</div>
 					) : null}
@@ -113,8 +155,13 @@ function AddItemForm() {
 				<Button onClick={handleCancel} size="lg">
 					cancel
 				</Button>
-				<Button size="lg" type="submit" color="primary">
-					Save
+				<Button
+					disabled={isLoading}
+					size="lg"
+					type="submit"
+					color="primary"
+				>
+					{isLoading ? <Loader size="sm" center={true} /> : 'Save'}
 				</Button>
 			</Actions>
 		</Form>

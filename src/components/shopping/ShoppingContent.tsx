@@ -1,4 +1,6 @@
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../../redux/store';
 import Header from '../layout/Header';
 import ShoppingItemsHolder from './ShoppingItemsHolder';
 import ShoppingSection from './ShoppingSection';
@@ -10,21 +12,23 @@ const StyledShoppingContent = styled.div`
 `;
 
 function ShoppingContent() {
+	const { categories, items } = useSelector(
+		(state: RootState) => state.shopping
+	);
+
 	return (
 		<StyledShoppingContent>
 			<Header />
-			<ShoppingItemsHolder>
-				<ShoppingSection />
-			</ShoppingItemsHolder>
-			<ShoppingItemsHolder>
-				<ShoppingSection />
-			</ShoppingItemsHolder>
-			<ShoppingItemsHolder>
-				<ShoppingSection />
-			</ShoppingItemsHolder>
-			<ShoppingItemsHolder>
-				<ShoppingSection />
-			</ShoppingItemsHolder>
+			{categories.map((cat: any) => (
+				<ShoppingItemsHolder key={cat.lowercase}>
+					<ShoppingSection
+						category={cat.category}
+						items={items.filter(
+							(item: any) => item.category === cat.category
+						)}
+					/>
+				</ShoppingItemsHolder>
+			))}
 		</StyledShoppingContent>
 	);
 }

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../../redux/store';
 import { sidebarRightPadding, sidebarRightStyles } from '../../styles/mixins';
 import AddItemForm from './AddItemForm';
 import {
@@ -41,6 +43,8 @@ const Title = styled.h2`
 function AddItem({ show }: Props) {
 	const [shouldRender, setRender] = useState(show);
 
+	const { currentItem } = useSelector((state: RootState) => state.shopping);
+
 	useEffect(() => {
 		if (show) setRender(true);
 	}, [show]);
@@ -53,8 +57,8 @@ function AddItem({ show }: Props) {
 
 	return (
 		<StyledAddItem onAnimationEnd={handleAnimationEnd} show={show}>
-			<Title>Add a new Item</Title>
-			<AddItemForm />
+			<Title>{currentItem ? 'Edit Item' : 'Add a new Item'}</Title>
+			<AddItemForm item={currentItem} />
 		</StyledAddItem>
 	);
 }

@@ -1,14 +1,18 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { RootState } from '../redux/store';
 import Content from '../components/layout/Content';
 import Sidebar from '../components/layout/Sidebar';
-import { getCategories } from '../redux/actions/shopping';
+import { getCategories, getItems } from '../redux/actions/shopping';
 
 function HomePage() {
 	const dispatch = useDispatch();
 
-	const { categories } = useSelector((state: RootState) => state.shopping);
+	const { categories, items } = useSelector(
+		(state: RootState) => state.shopping
+	);
 
 	useEffect(() => {
 		if (categories.length === 0) {
@@ -16,11 +20,20 @@ function HomePage() {
 		}
 	}, [dispatch, categories]);
 
+	useEffect(() => {
+		if (items.length === 0) {
+			dispatch(getItems());
+		}
+	}, [dispatch, items]);
+
 	return (
-		<div className="layout">
-			<Sidebar />
-			<Content />
-		</div>
+		<>
+			<ToastContainer />
+			<div className="layout">
+				<Sidebar />
+				<Content />
+			</div>
+		</>
 	);
 }
 

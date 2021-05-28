@@ -1,16 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GroupTypeBase, OptionTypeBase, StylesConfig } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { createCategory } from '../../redux/actions/shopping';
 import { RootState } from '../../redux/store';
 
-// Event
-
-// interface SelectProps {
-//   onChange(e: ChangeEvent): void;
-//   value: string;
-// }
+interface SelectProps {
+	value: string;
+	options: string[];
+	onChange(value: string): void;
+}
 
 interface SelectState extends GroupTypeBase<OptionTypeBase> {
 	isLoading: boolean;
@@ -21,28 +20,30 @@ const createOption = (label: string) => ({
 	value: label.toLowerCase().replace(/\W/g, ''),
 });
 
-function Select() {
+function Select({ value, options, onChange }: SelectProps) {
 	const dispatch = useDispatch();
 
 	const { uid } = useSelector((state: RootState) => state.auth);
 
-	const { categories } = useSelector((state: RootState) => state.shopping);
-
 	const [state, setState] = useState<SelectState>({
 		isLoading: false,
-		options: categories.map((category: any) =>
-			createOption(category.category)
-		),
-		value: undefined,
+		options: options.map((opt) => createOption(opt)),
+		value: !value ? null : createOption(value),
 	});
 
-	const [selectInputText, setSelectInputText] = useState('');
+	// Limpia el valor del select una vez se haya creado el item
+	useEffect(() => {
+		if (!value && state.value) {
+			setState((state) => ({ ...state, value: null }));
+		}
+	}, [value, state.value]);
 
 	const handleChange = (newValue: any, actionMeta: any) => {
 		console.group('Value Changed');
 		console.log(newValue);
 		console.log(`action: ${actionMeta.action}`);
 		console.groupEnd();
+		onChange(newValue?.label || '');
 		setState({ ...state, value: newValue });
 	};
 
@@ -127,8 +128,6 @@ function Select() {
 		<CreatableSelect
 			id="category"
 			name="selectText"
-			className="basic-single"
-			classNamePrefix="select"
 			isClearable={true}
 			isDisabled={state.isLoading}
 			isLoading={state.isLoading}
@@ -137,16 +136,6 @@ function Select() {
 			options={state.options}
 			value={state.value}
 			styles={selectStyle}
-
-			// defaultValue={state.options[0]}
-			// onInputChange={(inputValue: any, actionMeta: any) => {
-			// 	console.group('Input Changed');
-			// 	console.log(inputValue);
-			// 	console.log(`action: ${actionMeta.action}`);
-			// 	console.groupEnd();
-			// 	setSelectInputText(inputValue);
-			// }}
-			// inputValue={selectInputText}
 		/>
 	);
 }

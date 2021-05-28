@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import ShoppingItem from './ShoppingItem';
 
-// interface Props {
-//   category: string;
-//   items: ShoppingItems[];
-// }
+interface Props {
+	category: string;
+	items: any[];
+}
 
 const StyledShoppingSection = styled.section`
 	margin-bottom: 1.6rem;
@@ -28,17 +28,14 @@ const SectionList = styled.ul`
 	}
 `;
 
-function ShoppingSection() {
+function ShoppingSection({ category, items }: Props) {
 	return (
 		<StyledShoppingSection>
-			<Headline>Fruit and vegetables</Headline>
+			<Headline>{category}</Headline>
 			<SectionList>
-				<ShoppingItem />
-				<ShoppingItem />
-
-				<ShoppingItem />
-				<ShoppingItem />
-				<ShoppingItem />
+				{items.map((item: any) => (
+					<ShoppingItem key={item._id} item={item} />
+				))}
 			</SectionList>
 		</StyledShoppingSection>
 	);

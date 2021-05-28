@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { MdArrowBack } from 'react-icons/md';
-import { hideItemInfo } from '../../redux/actions/ui';
+import { hideItemInfo, openDialog, closeDialog } from '../../redux/actions/ui';
+import { hideItem, startDeleteItem } from '../../redux/actions/shopping';
+import { RootState } from '../../redux/store';
 import {
 	slideInRight,
 	slideOutRight,
@@ -11,12 +13,14 @@ import {
 } from '../../styles/animations';
 import { sidebarRightPadding, sidebarRightStyles } from '../../styles/mixins';
 import Button from '../ui/Button';
+import ConfirmDialog from '../ui/ConfirmDialog';
 
-interface Props {
+interface ItemInfoProps {
 	show: boolean;
+	item: any | null;
 }
 
-const StyledItemInfo = styled.div<Props>`
+const StyledItemInfo = styled.div<{ show: boolean }>`
 	${sidebarRightStyles};
 	${sidebarRightPadding};
 	animation: ${({ show }) =>
@@ -84,9 +88,11 @@ const Actions = styled.div`
 	}
 `;
 
-function ItemInfo({ show }: Props) {
+function ItemInfo({ show, item }: ItemInfoProps) {
 	const [shouldRender, setRender] = useState(show);
 	const dispatch = useDispatch();
+
+	const ui = useSelector((state: RootState) => state.ui);
 
 	useEffect(() => {
 		if (show) setRender(true);
@@ -97,7 +103,20 @@ function ItemInfo({ show }: Props) {
 	};
 
 	const goBack = () => {
+		dispatch(hideItem());
 		dispatch(hideItemInfo());
+	};
+
+	const handleDelete = () => {
+		dispatch(openDialog());
+	};
+
+	const handleCloseDialog = () => dispatch(closeDialog());
+
+	const deleteItem = () => {
+		dispatch(hideItemInfo());
+		dispatch(startDeleteItem(item?._id));
+		handleCloseDialog();
 	};
 
 	if (!shouldRender) return null;
@@ -108,27 +127,32 @@ function ItemInfo({ show }: Props) {
 				<MdArrowBack size={24} color="currentColor" />
 				back
 			</BackButton>
-			<Image src="https://www.gardentech.com/-/media/Images/GardenTech-NA/US/blog/How-to-Grow-Your-Own-Tasty-Strawberries/Strawberries-Header-OG.jpg" />
+			{item?.image && <Image src={item?.image} />}
 			<Legend>name</Legend>
-			<Text>Avocado</Text>
+			<Text>{item?.name}</Text>
 			<Legend>category</Legend>
-			<Text>Fruit and vegetables</Text>
-			<Legend>note</Legend>
-			<Text>
-				Nutrient-dense foods are those that provides substantial amounts
-				of vitamins, minerals and other nutrients with relatively few
-				calories. One.third of a medium avocado (50g) has 80 calories
-				and contributes nearly 20 vitamins and minerals, making it a
-				great nutrient-dense food choice.
-			</Text>
+			<Text>{item?.category}</Text>
+			{item?.note && (
+				<>
+					<Legend>note</Legend>
+					<Text>{item?.note}</Text>
+				</>
+			)}
+
 			<Actions>
-				<Button size="lg" type="button">
+				<Button size="lg" type="button" onClick={handleDelete}>
 					delete
 				</Button>
 				<Button size="lg" type="button" color="primary">
 					Add to list
 				</Button>
 			</Actions>
+			<ConfirmDialog
+				title="Are you sure that you want to delete this item?"
+				isOpen={ui.isDialogOpen}
+				onClose={handleCloseDialog}
+				onConfirm={deleteItem}
+			/>
 		</StyledItemInfo>
 	);
 }

@@ -1,21 +1,15 @@
 import { MouseEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { MdAdd } from 'react-icons/md';
-import { showItemInfo } from '../../redux/actions/ui';
+import { MdAdd, MdEdit } from 'react-icons/md';
+import { showAddItem, showItemInfo } from '../../redux/actions/ui';
+import { showItem } from '../../redux/actions/shopping';
 
-const StyledShoppingItem = styled.div`
-	background-color: var(--color-bg-3);
-	border-radius: 1.2rem;
-	cursor: default;
-	padding: 1.2rem 1.6rem;
-	display: grid;
-	grid-template-columns: 1fr 2.4rem;
-	gap: 1.2rem;
-	align-items: start;
-`;
+interface ShoppingItemProps {
+	item: any;
+}
 
-const AddListButton = styled.button`
+const ItemButton = styled.button`
 	background: none;
 	border: none;
 	color: #fff;
@@ -24,10 +18,25 @@ const AddListButton = styled.button`
 	margin: 0;
 `;
 
-function ShoppingItem() {
+const StyledShoppingItem = styled.div`
+	background-color: var(--color-bg-3);
+	border-radius: 1.2rem;
+	cursor: default;
+	padding: 1.2rem 1.6rem;
+	display: grid;
+	grid-template-columns: 1fr repeat(2, 2.4rem);
+	gap: 0.8rem;
+	align-items: start;
+	${ItemButton}:first-of-type {
+		opacity: 0.7;
+	}
+`;
+
+function ShoppingItem({ item }: ShoppingItemProps) {
 	const dispatch = useDispatch();
 
 	const viewDetails = () => {
+		dispatch(showItem(item));
 		dispatch(showItemInfo());
 	};
 
@@ -35,16 +44,25 @@ function ShoppingItem() {
 		e.stopPropagation();
 	};
 
+	const showEditPanel = (e: MouseEvent) => {
+		e.stopPropagation();
+		dispatch(showItem(item));
+		dispatch(showAddItem());
+	};
+
 	return (
 		<StyledShoppingItem onClick={viewDetails}>
-			Avocado
-			<AddListButton
+			{item.name}
+			<ItemButton type="button" title="Edit Item" onClick={showEditPanel}>
+				<MdEdit size={24} color="currentColor" />
+			</ItemButton>
+			<ItemButton
 				type="button"
 				title="Add Item to the list"
 				onClick={addCart}
 			>
 				<MdAdd size={24} color="currentColor" />
-			</AddListButton>
+			</ItemButton>
 		</StyledShoppingItem>
 	);
 }

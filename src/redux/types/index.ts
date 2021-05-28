@@ -18,6 +18,12 @@ const types = {
 	AUTH_CHECKING_FINISH: '[AUTH] Checking for an authenticated user finish',
 	SHOPPING_SAVE_CATEGORIES: '[SHOPPING] Save the user categories',
 	SHOPPING_ADD_CATEGORY: '[SHOPPING] Add a new category',
+	SHOPPING_SAVE_ITEMS: '[SHOPPING] Save the user items',
+	SHOPPING_ADD_ITEM: '[SHOPPING] add a new item',
+	SHOPPING_SHOW_ITEM: '[SHOPPING] Show the info of an item',
+	SHOPPING_HIDE_ITEM: '[SHOPPING] Hide the info of an item',
+	SHOPPING_UPDATE_ITEM: '[SHOPPING] Update an item',
+	SHOPPING_DELETE_ITEM: '[SHOPPING] Delete an item',
 };
 
 export default types;

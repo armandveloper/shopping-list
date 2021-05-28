@@ -18,6 +18,7 @@ export interface AuthState {
 export interface ShoppingState {
 	items: any[];
 	categories: any[];
+	currentItem: any | null;
 }
 
 export interface RootState {
