@@ -21,10 +21,18 @@ export interface ShoppingState {
 	currentItem: any | null;
 }
 
+export interface CartState {
+	name: string;
+	user: string;
+	isEditing: boolean;
+	items: any[];
+}
+
 export interface RootState {
 	ui: UiState;
 	auth: AuthState;
 	shopping: ShoppingState;
+	cart: CartState;
 }
 
 const composeEnhancers =

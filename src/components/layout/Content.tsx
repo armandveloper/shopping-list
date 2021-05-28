@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../redux/store';
 import ShoppingContent from '../shopping/ShoppingContent';
-import ShoppingSidebar from './ShoppingSidebar';
+import CartSidebar from './CartSidebar';
 import AddItem from '../shopping/AddItem';
 import ItemInfo from '../shopping/ItemInfo';
 
@@ -23,7 +23,7 @@ function Content() {
 	return (
 		<StyledContent>
 			<ShoppingContent />
-			<ShoppingSidebar />
+			<CartSidebar />
 			<AddItem show={ui.showAddItem} />
 			<ItemInfo item={currentItem} show={ui.showItemInfo} />
 		</StyledContent>

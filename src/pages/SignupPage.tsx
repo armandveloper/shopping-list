@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { RootState } from '../redux/store';
 import { startSignup } from '../redux/actions/auth';
 import Box from '../components/auth/Box';
@@ -39,8 +41,9 @@ function SignupPage() {
 
 	return (
 		<Box>
+			<ToastContainer />
 			<h1 className="no-margin">Signup</h1>
-			<Form onSubmit={formik.handleSubmit}>
+			<Form onSubmit={formik.handleSubmit} autoComplete="off">
 				<Field>
 					<label htmlFor="email">Email address</label>
 					<input

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import AddItemButton from './AddItemButton';
 import ShoppingItem from './ShoppingItem';
 
 interface Props {
@@ -36,6 +37,9 @@ function ShoppingSection({ category, items }: Props) {
 				{items.map((item: any) => (
 					<ShoppingItem key={item._id} item={item} />
 				))}
+				{items.length === 0 && (
+					<AddItemButton>Add an item</AddItemButton>
+				)}
 			</SectionList>
 		</StyledShoppingSection>
 	);

@@ -1,5 +1,6 @@
 import { Action, ActionCreator, AnyAction, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+import { toast } from 'react-toastify';
 import { AuthState } from '../store';
 import { IUser } from '../../interfaces/user.interface';
 import types from '../types';
@@ -20,7 +21,7 @@ export const startSignup: ActionCreator<
 			return dispatch(signup(data.user.uid));
 		} catch (err) {
 			dispatch(unsetIsLoading());
-			alert(err.message);
+			toast.error(err.message);
 		}
 	};
 };
@@ -44,7 +45,7 @@ export const startSignin: ActionCreator<
 			return dispatch(signin(data.user.uid));
 		} catch (err) {
 			dispatch(unsetIsLoading());
-			alert(err.message);
+			toast.error(err.message);
 		}
 	};
 };

@@ -14,18 +14,29 @@ const Sidebar = styled.aside`
 	flex-direction: column;
 `;
 
-function ShoppingSidebar() {
+function CartSidebar() {
 	const ui = useSelector((state: RootState) => state.ui);
+	const cart = useSelector((state: RootState) => state.cart);
 
 	return (
 		<Sidebar className={ui.showSidebarRight ? 'show' : ''}>
 			<Banner />
-			{/* <NoItems /> */}
-			<ShoppingListContainer />
-			{/* <SaveShoppingList /> */}
-			<ShoppingListActions />
+			{cart.items.length === 0 ? (
+				<>
+					<NoItems />
+				</>
+			) : (
+				<>
+					<ShoppingListContainer />
+					{cart.isEditing ? (
+						<SaveShoppingList />
+					) : (
+						<ShoppingListActions />
+					)}
+				</>
+			)}
 		</Sidebar>
 	);
 }
 
-export default ShoppingSidebar;
+export default CartSidebar;

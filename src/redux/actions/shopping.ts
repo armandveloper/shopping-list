@@ -63,10 +63,9 @@ export const getItems: ActionCreator<
 			const res = await fetchWithToken('items');
 			const data = await res.json();
 			if (!data.success) throw new Error(data.msg);
+			const { categories, items } = data;
 			dispatch(unsetIsLoading());
-			if (data.items.length > 0) {
-				dispatch(saveItems(data.items));
-			}
+			dispatch(saveItems({ categories, items }));
 		} catch (err) {
 			dispatch(unsetIsLoading());
 			toast.error(err.message);
@@ -74,9 +73,9 @@ export const getItems: ActionCreator<
 	};
 };
 
-const saveItems = (items: any[]) => ({
+const saveItems = (itemsInfo: { categories: any[]; items: any[] }) => ({
 	type: types.SHOPPING_SAVE_ITEMS,
-	payload: items,
+	payload: itemsInfo,
 });
 
 export const createItem: ActionCreator<
@@ -167,7 +166,7 @@ export const startDeleteItem: ActionCreator<
 			const data = await res.json();
 			if (!data.success) throw new Error(data.msg);
 			dispatch(unsetIsLoading());
-			dispatch(deleteItem(id));
+			dispatch(deleteItem(data.item));
 			toast.success('Item deleted');
 		} catch (err) {
 			dispatch(unsetIsLoading());
@@ -176,7 +175,7 @@ export const startDeleteItem: ActionCreator<
 	};
 };
 
-const deleteItem = (id: string) => ({
+const deleteItem = (item: any) => ({
 	type: types.SHOPPING_DELETE_ITEM,
-	payload: id,
+	payload: item,
 });

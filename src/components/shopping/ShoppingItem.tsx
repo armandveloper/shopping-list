@@ -4,19 +4,11 @@ import styled from 'styled-components';
 import { MdAdd, MdEdit } from 'react-icons/md';
 import { showAddItem, showItemInfo } from '../../redux/actions/ui';
 import { showItem } from '../../redux/actions/shopping';
+import ItemButton from './ItemButton';
 
 interface ShoppingItemProps {
 	item: any;
 }
-
-const ItemButton = styled.button`
-	background: none;
-	border: none;
-	color: #fff;
-	cursor: pointer;
-	padding: 0;
-	margin: 0;
-`;
 
 const StyledShoppingItem = styled.div`
 	background-color: var(--color-bg-3);

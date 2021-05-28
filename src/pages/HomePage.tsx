@@ -5,20 +5,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { RootState } from '../redux/store';
 import Content from '../components/layout/Content';
 import Sidebar from '../components/layout/Sidebar';
-import { getCategories, getItems } from '../redux/actions/shopping';
+import { getItems } from '../redux/actions/shopping';
 
 function HomePage() {
 	const dispatch = useDispatch();
 
-	const { categories, items } = useSelector(
-		(state: RootState) => state.shopping
-	);
-
-	useEffect(() => {
-		if (categories.length === 0) {
-			dispatch(getCategories());
-		}
-	}, [dispatch, categories]);
+	const { items } = useSelector((state: RootState) => state.shopping);
 
 	useEffect(() => {
 		if (items.length === 0) {
