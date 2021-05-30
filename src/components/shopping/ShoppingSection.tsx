@@ -1,11 +1,7 @@
 import styled from 'styled-components';
+import { IItem, IItemByCategory } from '../../interfaces/shopping.interface';
 import AddItemButton from './AddItemButton';
 import ShoppingItem from './ShoppingItem';
-
-interface Props {
-	category: string;
-	items: any[];
-}
 
 const StyledShoppingSection = styled.section`
 	margin-bottom: 1.6rem;
@@ -29,12 +25,12 @@ const SectionList = styled.ul`
 	}
 `;
 
-function ShoppingSection({ category, items }: Props) {
+function ShoppingSection({ category, items }: IItemByCategory) {
 	return (
 		<StyledShoppingSection>
 			<Headline>{category}</Headline>
 			<SectionList>
-				{items.map((item: any) => (
+				{items.map((item: IItem) => (
 					<ShoppingItem key={item._id} item={item} />
 				))}
 				{items.length === 0 && (

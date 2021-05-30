@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { IItemByCategory } from '../../interfaces/shopping.interface';
 import { RootState } from '../../redux/store';
 import Header from '../layout/Header';
 import Loader from '../ui/Loader';
@@ -28,7 +29,7 @@ function ShoppingContent() {
 					<Loader center={true} size="lg" />
 				</div>
 			) : (
-				items.map((cat: any) =>
+				items.map((cat: IItemByCategory) =>
 					cat.items.length > 0 ? (
 						<ShoppingItemsHolder key={cat.category}>
 							<ShoppingSection

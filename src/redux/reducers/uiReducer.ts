@@ -1,4 +1,4 @@
-import { Action } from 'redux';
+import { AnyAction } from 'redux';
 import types from '../types';
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
 	isLoading: false,
 };
 
-const uiReducer = (state = initialState, action: Action) => {
+const uiReducer = (state = initialState, action: AnyAction) => {
 	switch (action.type) {
 		case types.UI_SHOW_ADD_ITEM:
 			return {

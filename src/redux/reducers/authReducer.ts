@@ -1,3 +1,4 @@
+import { AnyAction } from 'redux';
 import types from '../types';
 
 const initialState = {
@@ -5,10 +6,7 @@ const initialState = {
 	uid: null,
 };
 
-const authReducer = (
-	state = initialState,
-	action: { type: string; payload?: any }
-) => {
+const authReducer = (state = initialState, action: AnyAction) => {
 	switch (action.type) {
 		case types.AUTH_SIGNIN:
 			return { ...state, checking: false, uid: action.payload };

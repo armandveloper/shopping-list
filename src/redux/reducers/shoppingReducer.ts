@@ -1,3 +1,4 @@
+import { AnyAction } from 'redux';
 import types from '../types';
 
 const initialState = {
@@ -6,10 +7,7 @@ const initialState = {
 	currentItem: null,
 };
 
-const shoppingReducer = (
-	state = initialState,
-	action: { type: string; payload?: any }
-) => {
+const shoppingReducer = (state = initialState, action: AnyAction) => {
 	switch (action.type) {
 		case types.SHOPPING_SAVE_CATEGORIES:
 			return { ...state, categories: action.payload };

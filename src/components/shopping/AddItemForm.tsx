@@ -9,13 +9,14 @@ import {
 	hideItem,
 	startUpdateItem,
 } from '../../redux/actions/shopping';
+import { IItem } from '../../interfaces/shopping.interface';
 import Button from '../ui/Button';
 import Field from '../Form/Field';
 import Select from '../ui/Select';
 import Loader from '../ui/Loader';
 
 interface AddItemFormProps {
-	item: any | null;
+	item: IItem | null;
 }
 
 const Form = styled.form`

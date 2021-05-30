@@ -2,6 +2,7 @@ import { Action, ActionCreator, AnyAction, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { toast } from 'react-toastify';
 import { AuthState } from '../store';
+import { IAuthResponse } from '../../interfaces/auth.interface';
 import { IUser } from '../../interfaces/user.interface';
 import types from '../types';
 import { fetchWithoutToken, fetchWithToken } from '../../helpers/fetch';
@@ -14,7 +15,7 @@ export const startSignup: ActionCreator<
 		dispatch(setIsLoading());
 		try {
 			const res = await fetchWithoutToken('auth/signup', user, 'POST');
-			const data = await res.json();
+			const data: IAuthResponse = await res.json();
 			if (!data.success) throw new Error(data.msg);
 			localStorage.setItem('shopping-list:token', data.token);
 			dispatch(unsetIsLoading());
@@ -38,7 +39,7 @@ export const startSignin: ActionCreator<
 		dispatch(setIsLoading());
 		try {
 			const res = await fetchWithoutToken('auth/signin', user, 'POST');
-			const data = await res.json();
+			const data: IAuthResponse = await res.json();
 			if (!data.success) throw new Error(data.msg);
 			localStorage.setItem('shopping-list:token', data.token);
 			dispatch(unsetIsLoading());
@@ -62,7 +63,7 @@ export const startChecking: ActionCreator<
 		try {
 			const res = await fetchWithToken('auth/renewToken');
 			if (!res.ok) throw new Error(res.statusText);
-			const data = await res.json();
+			const data: IAuthResponse = await res.json();
 			if (!data.success) throw new Error(data.msg);
 			localStorage.setItem('shopping-list:token', data.token);
 			dispatch(signin(data.user.uid));

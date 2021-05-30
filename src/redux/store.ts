@@ -1,5 +1,10 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
+import {
+	ICategory,
+	IItem,
+	IItemByCategory,
+} from '../interfaces/shopping.interface';
 import { rootReducer } from './reducers/rootReducer';
 
 export interface UiState {
@@ -16,9 +21,9 @@ export interface AuthState {
 }
 
 export interface ShoppingState {
-	items: any[];
-	categories: any[];
-	currentItem: any | null;
+	items: IItemByCategory[];
+	categories: ICategory[];
+	currentItem: IItem | null;
 }
 
 export interface CartState {

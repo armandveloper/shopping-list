@@ -4,10 +4,11 @@ import styled from 'styled-components';
 import { MdAdd, MdEdit } from 'react-icons/md';
 import { showAddItem, showItemInfo } from '../../redux/actions/ui';
 import { showItem } from '../../redux/actions/shopping';
+import { IItem } from '../../interfaces/shopping.interface';
 import ItemButton from './ItemButton';
 
 interface ShoppingItemProps {
-	item: any;
+	item: IItem;
 }
 
 const StyledShoppingItem = styled.div`
