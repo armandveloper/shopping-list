@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import shopping from '../../assets/img/shopping.svg';
 
-const StyledNoItems = styled.div`
+const StyledCartNoItems = styled.div`
 	flex: 1;
 	padding-top: 4rem;
 	display: flex;
 	justify-content: center;
-	background: url(${shopping}) center bottom 4rem / 24.5rem 20rem no-repeat;
+	background: url(${shopping}) center bottom 4rem / 24.5rem 20rem
+		Cartno-repeat;
 	@media (min-width: 56.25em) {
 		padding-top: 0;
 		align-items: center;
@@ -21,12 +22,12 @@ const StyledNoItems = styled.div`
 	}
 `;
 
-function NoItems() {
+function CartNoItems() {
 	return (
-		<StyledNoItems>
+		<StyledCartNoItems>
 			<p>No items</p>
-		</StyledNoItems>
+		</StyledCartNoItems>
 	);
 }
 
-export default NoItems;
+export default CartNoItems;

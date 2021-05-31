@@ -25,5 +25,6 @@ export const sidebarRightPadding = css`
 export const sidebarRightFooter = css`
 	background-color: var(--color-bg-3);
 	height: 9.4rem;
+	margin-top: 2.5rem;
 	padding: 1.8rem 1.4rem 1.4rem 2rem;
 `;

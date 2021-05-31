@@ -30,6 +30,7 @@ export interface CartState {
 	name: string;
 	user: string;
 	isEditing: boolean;
+	isLoading: boolean;
 	items: any[];
 }
 

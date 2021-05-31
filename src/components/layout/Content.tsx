@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../redux/store';
 import ShoppingContent from '../shopping/ShoppingContent';
-import CartSidebar from './CartSidebar';
+import CartSidebar from '../cart/CartSidebar';
 import AddItem from '../shopping/AddItem';
 import ItemInfo from '../shopping/ItemInfo';
 

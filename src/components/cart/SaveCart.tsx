@@ -1,6 +1,11 @@
+import { FormEvent, SyntheticEvent, useState } from 'react';
 import styled from 'styled-components';
 import { sidebarRightFooter } from '../../styles/mixins';
 import Button from '../ui/Button';
+
+interface SaveCartProps {
+	name: string;
+}
 
 const SaveForm = styled.form`
 	${sidebarRightFooter};
@@ -28,11 +33,20 @@ const Input = styled.input`
 	}
 `;
 
-function SaveShoppingList() {
+function SaveCart({ name }: SaveCartProps) {
+	const [cartName, setCartName] = useState(name);
+
+	const handleChange = ({ currentTarget }: FormEvent<HTMLInputElement>) =>
+		setCartName(currentTarget.value);
+
+	const handleSave = (e: SyntheticEvent) => {
+		e.preventDefault();
+	};
+
 	return (
-		<SaveForm>
+		<SaveForm onSubmit={handleSave}>
 			<InputContainer>
-				<Input type="text" />
+				<Input type="text" value={cartName} onChange={handleChange} />
 				<Button
 					size="lg"
 					roundedLeft={true}
@@ -46,4 +60,4 @@ function SaveShoppingList() {
 	);
 }
 
-export default SaveShoppingList;
+export default SaveCart;

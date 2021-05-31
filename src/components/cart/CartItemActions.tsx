@@ -1,6 +1,15 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { MdAdd, MdDelete, MdRemove } from 'react-icons/md';
-import Quantity from '../ui/QuantityChip';
+import QuantityChip from '../ui/QuantityChip';
+
+interface CartItemActionsProps {
+	quantity: number;
+}
+
+interface CounterProps {
+	start: number;
+}
 
 const DeleteButton = styled.button`
 	background-color: var(--color-primary);
@@ -30,21 +39,27 @@ const CounterButton = styled.button`
 	padding: 0;
 `;
 
-function Counter() {
+function Counter({ start }: CounterProps) {
+	const [counter, setCounter] = useState(start);
+
+	const increase = () => setCounter(counter + 1);
+
+	const decrease = () => setCounter(counter - 1);
+
 	return (
 		<StyledCounter>
 			<CounterButton type="button" title="-1">
-				<MdRemove size={16} color="currentColor" />
+				<MdRemove size={16} color="currentColor" onClick={decrease} />
 			</CounterButton>
-			<Quantity>3 pcs</Quantity>
+			<QuantityChip>{counter} pcs</QuantityChip>
 			<CounterButton type="button" title="+1">
-				<MdAdd size={16} color="currentColor" />
+				<MdAdd size={16} color="currentColor" onClick={increase} />
 			</CounterButton>
 		</StyledCounter>
 	);
 }
 
-const StyledItemActions = styled.div`
+const StyledCartItemActions = styled.div`
 	background-color: var(--color-bg-3);
 	border-radius: 1.2rem;
 	height: 4.5rem;
@@ -55,15 +70,15 @@ const StyledItemActions = styled.div`
 	align-items: center;
 `;
 
-function ItemActions() {
+function CartItemActions({ quantity }: CartItemActionsProps) {
 	return (
-		<StyledItemActions>
+		<StyledCartItemActions>
 			<DeleteButton type="button" title="Remove item from list">
 				<MdDelete size={24} color="#fff" />
 			</DeleteButton>
-			<Counter />
-		</StyledItemActions>
+			<Counter start={quantity} />
+		</StyledCartItemActions>
 	);
 }
 
-export default ItemActions;
+export default CartItemActions;

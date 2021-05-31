@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { MdAdd, MdEdit } from 'react-icons/md';
 import { showAddItem, showItemInfo } from '../../redux/actions/ui';
 import { showItem } from '../../redux/actions/shopping';
+import { addItemToCart } from '../../redux/actions/cart';
 import { IItem } from '../../interfaces/shopping.interface';
 import ItemButton from './ItemButton';
 
@@ -35,6 +36,15 @@ function ShoppingItem({ item }: ShoppingItemProps) {
 
 	const addCart = (e: MouseEvent) => {
 		e.stopPropagation();
+		dispatch(
+			addItemToCart({
+				name: item.name,
+				quantity: 1,
+				category: item.category,
+				completed: false,
+				item: item._id,
+			})
+		);
 	};
 
 	const showEditPanel = (e: MouseEvent) => {

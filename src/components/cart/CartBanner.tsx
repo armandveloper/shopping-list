@@ -9,7 +9,7 @@ const Container = styled.div`
 	${sidebarRightPadding}
 `;
 
-const StyledBanner = styled.div`
+const StyledCartBanner = styled.div`
 	background: #80485b url(${bottle}) left top -0.5rem / contain no-repeat;
 	border-radius: 2.4rem;
 	padding: 1.8rem 2.8rem;
@@ -26,7 +26,7 @@ const StyledBanner = styled.div`
 	}
 `;
 
-function Banner() {
+function CartBanner() {
 	const dispatch = useDispatch();
 
 	const handleAddItem = () => {
@@ -35,16 +35,16 @@ function Banner() {
 
 	return (
 		<Container>
-			<StyledBanner>
+			<StyledCartBanner>
 				<div>
 					<p>Didn't find what you need?</p>
 					<Button onClick={handleAddItem} color="black">
 						Add Item
 					</Button>
 				</div>
-			</StyledBanner>
+			</StyledCartBanner>
 		</Container>
 	);
 }
 
-export default Banner;
+export default CartBanner;

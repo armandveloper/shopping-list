@@ -2,11 +2,10 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../redux/store';
 import { sidebarRightStyles } from '../../styles/mixins';
-import Banner from '../shopping/Banner';
-import NoItems from '../shopping/NoItems';
-import SaveShoppingList from '../shopping/SaveShoppingList';
-import ShoppingListActions from '../shopping/ShoppingListActions';
-import ShoppingListContainer from '../shopping/ShoppingListContainer';
+import CartBanner from './CartBanner';
+import CartNoItems from './CartNoItems';
+import CartList from './CartList';
+import CartEditList from './CartEditList';
 
 const Sidebar = styled.aside`
 	${sidebarRightStyles}
@@ -20,20 +19,15 @@ function CartSidebar() {
 
 	return (
 		<Sidebar className={ui.showSidebarRight ? 'show' : ''}>
-			<Banner />
+			<CartBanner />
 			{cart.items.length === 0 ? (
 				<>
-					<NoItems />
+					<CartNoItems />
 				</>
+			) : cart.isEditing ? (
+				<CartEditList />
 			) : (
-				<>
-					<ShoppingListContainer />
-					{cart.isEditing ? (
-						<SaveShoppingList />
-					) : (
-						<ShoppingListActions />
-					)}
-				</>
+				<CartList />
 			)}
 		</Sidebar>
 	);

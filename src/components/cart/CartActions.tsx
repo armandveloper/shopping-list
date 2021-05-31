@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { sidebarRightFooter } from '../../styles/mixins';
 import Button from '../ui/Button';
 
-const StyledShoppingListActions = styled.div`
+const StyledCartActions = styled.div`
 	${sidebarRightFooter};
 	text-align: center;
 	@media (min-width: 37.5em) {
@@ -16,15 +16,15 @@ const StyledShoppingListActions = styled.div`
 	}
 `;
 
-function ShoppingListActions() {
+function CartActions() {
 	return (
-		<StyledShoppingListActions>
+		<StyledCartActions>
 			<Button type="button">cancel</Button>
 			<Button type="button" color="secondary">
 				Complete
 			</Button>
-		</StyledShoppingListActions>
+		</StyledCartActions>
 	);
 }
 
-export default ShoppingListActions;
+export default CartActions;
