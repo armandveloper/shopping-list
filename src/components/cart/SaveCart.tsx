@@ -1,11 +1,10 @@
 import { FormEvent, SyntheticEvent, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { startSaveCart, startUpdateCart } from '../../redux/actions/cart';
+import { RootState } from '../../redux/store';
 import { sidebarRightFooter } from '../../styles/mixins';
 import Button from '../ui/Button';
-
-interface SaveCartProps {
-	name: string;
-}
 
 const SaveForm = styled.form`
 	${sidebarRightFooter};
@@ -33,14 +32,26 @@ const Input = styled.input`
 	}
 `;
 
-function SaveCart({ name }: SaveCartProps) {
-	const [cartName, setCartName] = useState(name);
+function SaveCart() {
+	const { unsavedCart } = useSelector((state: RootState) => state.cart);
+
+	const dispatch = useDispatch();
+
+	const [cartName, setCartName] = useState(unsavedCart.name);
 
 	const handleChange = ({ currentTarget }: FormEvent<HTMLInputElement>) =>
 		setCartName(currentTarget.value);
 
 	const handleSave = (e: SyntheticEvent) => {
 		e.preventDefault();
+		if (cartName.length < 3) return;
+		const cart = { ...unsavedCart, name: cartName };
+		// Crear
+		if (!unsavedCart._id) {
+			return dispatch(startSaveCart(cart));
+		}
+		// Actualizar
+		dispatch(startUpdateCart(cart));
 	};
 
 	return (
@@ -48,12 +59,13 @@ function SaveCart({ name }: SaveCartProps) {
 			<InputContainer>
 				<Input type="text" value={cartName} onChange={handleChange} />
 				<Button
+					disabled={cartName.length < 3}
 					size="lg"
 					roundedLeft={true}
 					type="submit"
 					color="primary"
 				>
-					Save
+					{unsavedCart._id ? 'Update' : 'Save'}
 				</Button>
 			</InputContainer>
 		</SaveForm>

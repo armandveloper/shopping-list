@@ -6,12 +6,12 @@ const StyledCartNoItems = styled.div`
 	padding-top: 4rem;
 	display: flex;
 	justify-content: center;
-	background: url(${shopping}) center bottom 4rem / 24.5rem 20rem
-		Cartno-repeat;
+	background: url(${shopping}) center bottom 4rem / 24.5rem 20rem no-repeat;
 	@media (min-width: 56.25em) {
 		padding-top: 0;
 		align-items: center;
 	}
+
 	p {
 		font-size: 2rem;
 		font-weight: 700;

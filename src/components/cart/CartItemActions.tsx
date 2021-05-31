@@ -1,14 +1,17 @@
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { MdAdd, MdDelete, MdRemove } from 'react-icons/md';
+import { removeItem, setItemQuantity } from '../../redux/actions/cart';
 import QuantityChip from '../ui/QuantityChip';
 
 interface CartItemActionsProps {
 	quantity: number;
+	id: string;
 }
 
 interface CounterProps {
 	start: number;
+	id: string;
 }
 
 const DeleteButton = styled.button`
@@ -39,19 +42,24 @@ const CounterButton = styled.button`
 	padding: 0;
 `;
 
-function Counter({ start }: CounterProps) {
-	const [counter, setCounter] = useState(start);
+function Counter({ id, start }: CounterProps) {
+	const dispatch = useDispatch();
 
-	const increase = () => setCounter(counter + 1);
+	const increase = () => dispatch(setItemQuantity(id, start + 1));
 
-	const decrease = () => setCounter(counter - 1);
+	const decrease = () => {
+		const quantity = start - 1;
+		quantity === 0
+			? dispatch(removeItem(id))
+			: dispatch(setItemQuantity(id, start - 1));
+	};
 
 	return (
 		<StyledCounter>
 			<CounterButton type="button" title="-1">
 				<MdRemove size={16} color="currentColor" onClick={decrease} />
 			</CounterButton>
-			<QuantityChip>{counter} pcs</QuantityChip>
+			<QuantityChip>{start} pcs</QuantityChip>
 			<CounterButton type="button" title="+1">
 				<MdAdd size={16} color="currentColor" onClick={increase} />
 			</CounterButton>
@@ -70,13 +78,23 @@ const StyledCartItemActions = styled.div`
 	align-items: center;
 `;
 
-function CartItemActions({ quantity }: CartItemActionsProps) {
+function CartItemActions({ quantity, id }: CartItemActionsProps) {
+	const dispatch = useDispatch();
+
+	const handleRemove = () => {
+		dispatch(removeItem(id));
+	};
+
 	return (
 		<StyledCartItemActions>
-			<DeleteButton type="button" title="Remove item from list">
+			<DeleteButton
+				type="button"
+				title="Remove item from list"
+				onClick={handleRemove}
+			>
 				<MdDelete size={24} color="#fff" />
 			</DeleteButton>
-			<Counter start={quantity} />
+			<Counter id={id} start={quantity} />
 		</StyledCartItemActions>
 	);
 }

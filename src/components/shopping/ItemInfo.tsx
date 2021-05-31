@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import { MdArrowBack } from 'react-icons/md';
 import { hideItemInfo, openDialog, closeDialog } from '../../redux/actions/ui';
 import { hideItem, startDeleteItem } from '../../redux/actions/shopping';
+import { addItemToCart } from '../../redux/actions/cart';
 import { RootState } from '../../redux/store';
+import { IItem } from '../../interfaces/shopping.interface';
 import {
 	slideInRight,
 	slideOutRight,
@@ -17,7 +19,7 @@ import ConfirmDialog from '../ui/ConfirmDialog';
 
 interface ItemInfoProps {
 	show: boolean;
-	item: any | null;
+	item: IItem | null;
 }
 
 const StyledItemInfo = styled.div<{ show: boolean }>`
@@ -119,6 +121,19 @@ function ItemInfo({ show, item }: ItemInfoProps) {
 		handleCloseDialog();
 	};
 
+	const addCart = () => {
+		dispatch(
+			addItemToCart({
+				name: item?.name,
+				quantity: 1,
+				category: item?.category,
+				completed: false,
+				item: item?._id,
+			})
+		);
+		dispatch(hideItemInfo());
+	};
+
 	if (!shouldRender) return null;
 
 	return (
@@ -143,7 +158,12 @@ function ItemInfo({ show, item }: ItemInfoProps) {
 				<Button size="lg" type="button" onClick={handleDelete}>
 					delete
 				</Button>
-				<Button size="lg" type="button" color="primary">
+				<Button
+					size="lg"
+					type="button"
+					color="primary"
+					onClick={addCart}
+				>
 					Add to list
 				</Button>
 			</Actions>

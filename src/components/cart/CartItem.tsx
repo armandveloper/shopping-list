@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import Checkbox from '../ui/Checkbox';
 import QuantityChip from '../ui/QuantityChip';
 
+interface CartItemProps {
+	item: any;
+}
+
 export const StyledCartItem = styled.li`
 	font-size: 1.4rem;
 	display: grid;
@@ -13,12 +17,12 @@ export const StyledCartItem = styled.li`
 	}
 `;
 
-function CartItem() {
+function CartItem({ item }: CartItemProps) {
 	return (
 		<StyledCartItem>
-			<Checkbox />
-			Avocado
-			<QuantityChip>1 pcs</QuantityChip>
+			<Checkbox checked={item.completed} />
+			{item.name}
+			<QuantityChip>{item.quantity} pcs</QuantityChip>
 		</StyledCartItem>
 	);
 }

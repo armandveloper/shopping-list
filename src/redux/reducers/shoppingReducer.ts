@@ -1,4 +1,9 @@
 import { AnyAction } from 'redux';
+import {
+	ICategory,
+	IItem,
+	IItemByCategory,
+} from '../../interfaces/shopping.interface';
 import types from '../types';
 
 const initialState = {
@@ -16,20 +21,30 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 				...state,
 				categories: [...state.categories, action.payload],
 			};
-		case types.SHOPPING_ADD_ITEM:
+		case types.SHOPPING_ADD_ITEM: {
+			const categoryIndex = state.categories.findIndex(
+				(cat: ICategory) => cat.category === action.payload.category
+			);
+			const items: IItemByCategory[] = [...state.items];
+			items[categoryIndex].items = [
+				...items[categoryIndex].items,
+				action.payload,
+			];
 			return {
 				...state,
-				items: [...state.items, action.payload],
+				items,
 			};
+		}
+
 		case types.SHOPPING_SAVE_ITEMS:
 			return {
 				...state,
 				categories: action.payload.categories,
-				items: action.payload.categories.map((cat: any) => {
+				items: action.payload.categories.map((cat: ICategory) => {
 					return {
 						category: cat.category,
 						items: action.payload.items.filter(
-							(item: any) => item.category === cat.category
+							(item: IItem) => item.category === cat.category
 						),
 					};
 				}),
@@ -47,11 +62,11 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 		case types.SHOPPING_UPDATE_ITEM:
 			return {
 				...state,
-				items: state.items.map((cat: any) => {
+				items: state.items.map((cat: IItemByCategory) => {
 					if (action.payload.category !== cat.category) return cat;
 					return {
 						category: cat.category,
-						items: cat.items.map((item: any) =>
+						items: cat.items.map((item: IItem) =>
 							item._id === action.payload._id
 								? action.payload
 								: item
@@ -62,12 +77,12 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 		case types.SHOPPING_DELETE_ITEM:
 			return {
 				...state,
-				items: state.items.map((cat: any) => {
+				items: state.items.map((cat: IItemByCategory) => {
 					if (action.payload.category !== cat.category) return cat;
 					return {
 						category: cat.category,
 						items: cat.items.filter(
-							(item: any) => item._id !== action.payload._id
+							(item: IItem) => item._id !== action.payload._id
 						),
 					};
 				}),

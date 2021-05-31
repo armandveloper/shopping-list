@@ -27,6 +27,12 @@ const types = {
 	CART_SET_LOADING: '[CART] Set the cart loading state',
 	CART_GET: '[CART] Get the current user cart',
 	CART_ADD_ITEM: '[CART] Add an item to cart',
+	CART_SET_ITEM_QUANTITY: '[CART] Set the quantity of an item',
+	CART_REMOVE_ITEM: '[CART] Remove an item from the cart',
+	CART_SAVE: '[CART] Save the cart',
+	CART_SAVE_ERROR: '[CART] Save the cart name',
+	CART_ENABLE_EDIT_MODE: '[CART] Enable the cart edit mode',
+	CART_EXIT_EDIT_MODE: '[CART] Exit the cart edit mode',
 };
 
 export default types;

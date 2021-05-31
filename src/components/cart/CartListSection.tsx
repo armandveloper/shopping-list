@@ -21,17 +21,17 @@ const Headline = styled.h4`
 `;
 
 function CartListSection({ category, items }: CartListSectionProps) {
-	const { isEditing } = useSelector((state: RootState) => state.cart);
+	const { isEditMode } = useSelector((state: RootState) => state.cart);
 
 	return (
 		<StyledCartListSection>
 			<Headline>{category}</Headline>
-			{isEditing ? (
+			{isEditMode ? (
 				<CartEdit items={items} />
 			) : (
 				<ul>
 					{items.map((item: any) => (
-						<CartItem key={item._id} />
+						<CartItem key={item._id} item={item} />
 					))}
 				</ul>
 			)}

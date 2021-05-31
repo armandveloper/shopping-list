@@ -28,3 +28,13 @@ export const sidebarRightFooter = css`
 	margin-top: 2.5rem;
 	padding: 1.8rem 1.4rem 1.4rem 2rem;
 `;
+
+export const cartListHeader = css`
+	.header {
+		margin-top: 0;
+		margin-bottom: 3.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+`;

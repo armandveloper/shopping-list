@@ -14,7 +14,7 @@ function CartItemEdit({ item }: CartItemEditProps) {
 	return (
 		<StyledCartItemEdit>
 			{item.name}
-			<CartItemActions quantity={item.quantity} />
+			<CartItemActions id={item.item} quantity={item.quantity} />
 		</StyledCartItemEdit>
 	);
 }

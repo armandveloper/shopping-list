@@ -1,50 +1,65 @@
-import { StyledCartList } from './CartList';
-import CartListSection from './CartListSection';
-import Title from './CartCategoryTitle';
-import SaveCart from './SaveCart';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { MdClear } from 'react-icons/md';
 import { RootState } from '../../redux/store';
-import { useEffect, useState } from 'react';
-
-const getUniqueCategories = (categories: string[]) => {
-	return [...Array.from(new Set<string>(categories))];
-};
+import { closeDialog, openDialog } from '../../redux/actions/ui';
+import { exitEditMode } from '../../redux/actions/cart';
+import { getUniqueCategories } from '../../helpers/categories';
+import { StyledCartList } from './CartList';
+import CartIcon from './CartIcon';
+import CartListSection from './CartListSection';
+import CartTitle from './CartTitle';
+import SaveCart from './SaveCart';
+import ConfirmDialog from '../ui/ConfirmDialog';
 
 function CartEditList() {
-	const cart = useSelector((state: RootState) => state.cart);
+	const dispatch = useDispatch();
 
-	const [categories, setCategories] = useState(
-		getUniqueCategories(cart.items.map((item: any) => item.category))
+	const ui = useSelector((state: RootState) => state.ui);
+
+	const { unsavedCart } = useSelector((state: RootState) => state.cart);
+
+	const categories = getUniqueCategories(
+		unsavedCart.items.map((item: any) => item.category)
 	);
 
-	useEffect(() => {
-		setCategories(
-			getUniqueCategories(cart.items.map((item: any) => item.category))
-		);
-	}, [cart.items]);
+	const handleCloseDialog = () => dispatch(closeDialog());
 
-	const [items, setItems] = useState(cart.items);
+	const handleDiscard = () => {
+		dispatch(openDialog());
+	};
 
-	useEffect(() => {
-		setItems(cart.items);
-	}, [cart.items]);
+	const discardChanges = () => {
+		handleCloseDialog();
+		dispatch(exitEditMode());
+	};
 
 	return (
 		<StyledCartList>
 			<div className="content">
-				<Title>{cart.name}</Title>
+				<div className="header">
+					<CartTitle>{unsavedCart.name}</CartTitle>
+					<CartIcon title="Discard changes" onClick={handleDiscard}>
+						<MdClear size={24} color="currentColor" />
+					</CartIcon>
+				</div>
 				{/* TODO: Por cada categoriía hacer un map para mostrar los items */}
 				{categories.map((cat: string) => (
 					<CartListSection
 						key={cat}
 						category={cat}
-						items={items.filter(
+						items={unsavedCart.items.filter(
 							(item: any) => item.category === cat
 						)}
 					/>
 				))}
 			</div>
-			<SaveCart name={cart.name} />
+			<SaveCart />
+			<ConfirmDialog
+				title="Are you sure you want to exit the edit mode? All changes made will be discarded"
+				isOpen={ui.isDialogOpen}
+				onClose={handleCloseDialog}
+				onConfirm={discardChanges}
+			/>
 		</StyledCartList>
 	);
 }

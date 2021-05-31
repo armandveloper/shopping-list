@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 import { MdCheck } from 'react-icons/md';
+import { FormEvent, useState } from 'react';
+
+interface CheckboxProps {
+	checked: boolean;
+}
 
 const StyledCheckbox = styled.label`
 	cursor: pointer;
@@ -34,10 +39,19 @@ const StyledCheckbox = styled.label`
 	}
 `;
 
-function Checkbox() {
+function Checkbox({ checked }: CheckboxProps) {
+	const [isChecked, setChecked] = useState(checked);
+
+	const handleChange = (e: FormEvent<HTMLInputElement>) =>
+		setChecked(e.currentTarget.checked);
+
 	return (
 		<StyledCheckbox>
-			<input type="checkbox" />
+			<input
+				type="checkbox"
+				checked={isChecked}
+				onChange={handleChange}
+			/>
 			<span className="square"></span>
 			<MdCheck className="check" size={20} color="#fff" />
 		</StyledCheckbox>

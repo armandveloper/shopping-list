@@ -26,12 +26,18 @@ export interface ShoppingState {
 	currentItem: IItem | null;
 }
 
-export interface CartState {
+interface ICart {
+	_id: string;
 	name: string;
 	user: string;
-	isEditing: boolean;
-	isLoading: boolean;
 	items: any[];
+}
+
+export interface CartState {
+	isEditMode: boolean;
+	isLoading: boolean;
+	cart: ICart;
+	unsavedCart: ICart;
 }
 
 export interface RootState {
