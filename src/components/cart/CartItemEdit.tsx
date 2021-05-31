@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { ICartItem } from '../../interfaces/cart.interface';
 import { StyledCartItem } from './CartItem';
 import CartItemActions from './CartItemActions';
 
 interface CartItemEditProps {
-	item: any;
+	item: ICartItem;
 }
 
 const StyledCartItemEdit = styled(StyledCartItem)`

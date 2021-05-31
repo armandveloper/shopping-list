@@ -1,12 +1,13 @@
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../redux/store';
+import { ICartItem } from '../../interfaces/cart.interface';
 import CartEdit from './CartEdit';
 import CartItem from './CartItem';
 
 interface CartListSectionProps {
 	category: string;
-	items: any[];
+	items: ICartItem[];
 }
 
 const StyledCartListSection = styled.section`
@@ -30,7 +31,7 @@ function CartListSection({ category, items }: CartListSectionProps) {
 				<CartEdit items={items} />
 			) : (
 				<ul>
-					{items.map((item: any) => (
+					{items.map((item: ICartItem) => (
 						<CartItem key={item._id} item={item} />
 					))}
 				</ul>

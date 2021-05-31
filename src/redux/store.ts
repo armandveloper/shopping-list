@@ -5,6 +5,7 @@ import {
 	IItem,
 	IItemByCategory,
 } from '../interfaces/shopping.interface';
+import { ICart } from '../interfaces/cart.interface';
 import { rootReducer } from './reducers/rootReducer';
 
 export interface UiState {
@@ -24,13 +25,6 @@ export interface ShoppingState {
 	items: IItemByCategory[];
 	categories: ICategory[];
 	currentItem: IItem | null;
-}
-
-interface ICart {
-	_id: string;
-	name: string;
-	user: string;
-	items: any[];
 }
 
 export interface CartState {

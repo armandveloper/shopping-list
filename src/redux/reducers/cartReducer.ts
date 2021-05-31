@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
 import types from '../types';
+import { ICartItem } from '../../interfaces/cart.interface';
 
 const initialState = {
 	isEditMode: false,
@@ -11,7 +12,6 @@ const initialState = {
 		items: [],
 	},
 	unsavedCart: {
-		_id: '',
 		name: 'Shopping List',
 		user: '',
 		items: [],
@@ -51,11 +51,11 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 
 		case types.CART_ADD_ITEM: {
 			const exists = state.unsavedCart.items.some(
-				(item: any) => item.name === action.payload.name
+				(item: ICartItem) => item.item === action.payload.item
 			);
 			const items = exists
-				? state.unsavedCart.items.map((item: any) =>
-						item.name === action.payload.name
+				? state.unsavedCart.items.map((item: ICartItem) =>
+						item.item === action.payload.item
 							? {
 									...action.payload,
 									quantity: item.quantity + 1,
@@ -74,7 +74,7 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 				...state,
 				unsavedCart: {
 					...state.unsavedCart,
-					items: state.unsavedCart.items.map((item: any) =>
+					items: state.unsavedCart.items.map((item: ICartItem) =>
 						item.item === action.payload.id
 							? { ...item, quantity: action.payload.quantity }
 							: item
@@ -84,7 +84,7 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 		}
 		case types.CART_REMOVE_ITEM: {
 			const items = state.unsavedCart.items.filter(
-				(item: any) => item.item !== action.payload
+				(item: ICartItem) => item.item !== action.payload
 			);
 			return {
 				...state,

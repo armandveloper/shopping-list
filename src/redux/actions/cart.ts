@@ -3,6 +3,12 @@ import { ThunkAction } from 'redux-thunk';
 import { toast } from 'react-toastify';
 import { RootState, CartState } from '../store';
 import types from '../types';
+import {
+	ICartResponse,
+	IBaseCart,
+	ICart,
+	IBaseCartItem,
+} from '../../interfaces/cart.interface';
 import { fetchWithToken } from '../../helpers/fetch';
 
 const setCartLoading = (isLoading: boolean = true) => ({
@@ -30,9 +36,11 @@ export const startGetCart: ActionCreator<
 		const url = id ? `cart/${id}` : 'cart';
 		try {
 			const res = await fetchWithToken(url);
-			const data = await res.json();
-			if (!data.success) throw new Error(data.msg);
-			dispatch(getCart({ cart: data.cart, user }));
+			const data: ICartResponse = await res.json();
+			if (!data.success) {
+				return dispatch(getCart({ user }));
+			}
+			dispatch(getCart({ cart: data.cart }));
 		} catch (err) {
 			toast.error(err.message);
 			dispatch(getCart({ user }));
@@ -40,12 +48,12 @@ export const startGetCart: ActionCreator<
 	};
 };
 
-const getCart = (cartInfo: any) => ({
+const getCart = (cartInfo: { cart?: ICart; user?: string }) => ({
 	type: types.CART_GET,
 	payload: cartInfo,
 });
 
-export const addItemToCart = (item: any) => ({
+export const addItemToCart = (item: IBaseCartItem) => ({
 	type: types.CART_ADD_ITEM,
 	payload: item,
 });
@@ -57,13 +65,12 @@ export const setItemQuantity = (id: string, quantity: number) => ({
 
 export const startSaveCart: ActionCreator<
 	ThunkAction<Promise<Action | void>, CartState, void, AnyAction>
-> = (cart: any) => {
+> = (cart: IBaseCart) => {
 	return async (dispatch: Dispatch<Action>): Promise<Action | void> => {
 		dispatch(setCartLoading());
-		const url = 'cart';
 		try {
-			const res = await fetchWithToken(url, cart, 'POST');
-			const data = await res.json();
+			const res = await fetchWithToken('cart', cart, 'POST');
+			const data: ICartResponse = await res.json();
 			if (!data.success) throw new Error(data.msg);
 			dispatch(saveCart(data.cart));
 		} catch (err) {
@@ -75,13 +82,13 @@ export const startSaveCart: ActionCreator<
 
 export const startUpdateCart: ActionCreator<
 	ThunkAction<Promise<Action | void>, CartState, void, AnyAction>
-> = (cart: any) => {
+> = (cart: ICart) => {
 	return async (dispatch: Dispatch<Action>): Promise<Action | void> => {
 		dispatch(setCartLoading());
 		const url = `cart/${cart._id}`;
 		try {
 			const res = await fetchWithToken(url, cart, 'PUT');
-			const data = await res.json();
+			const data: ICartResponse = await res.json();
 			if (!data.success) throw new Error(data.msg);
 			dispatch(saveCart(data.cart));
 		} catch (err) {
@@ -91,12 +98,12 @@ export const startUpdateCart: ActionCreator<
 	};
 };
 
-const saveCart = (cart: any) => ({
+const saveCart = (cart: ICart) => ({
 	type: types.CART_SAVE,
 	payload: cart,
 });
 
-const saveCartError = (cart: any) => ({
+const saveCartError = (cart: IBaseCart | ICart) => ({
 	type: types.CART_SAVE_ERROR,
 	payload: cart,
 });

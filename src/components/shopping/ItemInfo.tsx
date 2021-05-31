@@ -124,11 +124,11 @@ function ItemInfo({ show, item }: ItemInfoProps) {
 	const addCart = () => {
 		dispatch(
 			addItemToCart({
-				name: item?.name,
+				name: item?.name || '',
 				quantity: 1,
-				category: item?.category,
+				category: item?.category || '',
 				completed: false,
-				item: item?._id,
+				item: item?._id || '',
 			})
 		);
 		dispatch(hideItemInfo());

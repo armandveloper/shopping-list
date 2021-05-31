@@ -9,11 +9,6 @@ interface CartItemActionsProps {
 	id: string;
 }
 
-interface CounterProps {
-	start: number;
-	id: string;
-}
-
 const DeleteButton = styled.button`
 	background-color: var(--color-primary);
 	border: none;
@@ -27,13 +22,13 @@ const DeleteButton = styled.button`
 	justify-content: center;
 `;
 
-const StyledCounter = styled.div`
+const StyledStepper = styled.div`
 	display: grid;
 	grid-template-columns: 1.6rem 1fr 1.6rem;
 	gap: 0.9rem;
 `;
 
-const CounterButton = styled.button`
+const StepperButton = styled.button`
 	background: none;
 	border: none;
 	color: var(--color-primary);
@@ -42,28 +37,28 @@ const CounterButton = styled.button`
 	padding: 0;
 `;
 
-function Counter({ id, start }: CounterProps) {
+function Stepper({ id, quantity }: CartItemActionsProps) {
 	const dispatch = useDispatch();
 
-	const increase = () => dispatch(setItemQuantity(id, start + 1));
+	const increase = () => dispatch(setItemQuantity(id, quantity + 1));
 
 	const decrease = () => {
-		const quantity = start - 1;
-		quantity === 0
+		const quantityMinus = quantity - 1;
+		quantityMinus === 0
 			? dispatch(removeItem(id))
-			: dispatch(setItemQuantity(id, start - 1));
+			: dispatch(setItemQuantity(id, quantityMinus));
 	};
 
 	return (
-		<StyledCounter>
-			<CounterButton type="button" title="-1">
+		<StyledStepper>
+			<StepperButton type="button" title="-1">
 				<MdRemove size={16} color="currentColor" onClick={decrease} />
-			</CounterButton>
-			<QuantityChip>{start} pcs</QuantityChip>
-			<CounterButton type="button" title="+1">
+			</StepperButton>
+			<QuantityChip>{quantity} pcs</QuantityChip>
+			<StepperButton type="button" title="+1">
 				<MdAdd size={16} color="currentColor" onClick={increase} />
-			</CounterButton>
-		</StyledCounter>
+			</StepperButton>
+		</StyledStepper>
 	);
 }
 
@@ -94,7 +89,7 @@ function CartItemActions({ quantity, id }: CartItemActionsProps) {
 			>
 				<MdDelete size={24} color="#fff" />
 			</DeleteButton>
-			<Counter id={id} start={quantity} />
+			<Stepper id={id} quantity={quantity} />
 		</StyledCartItemActions>
 	);
 }

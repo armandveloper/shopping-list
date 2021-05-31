@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { MdEdit } from 'react-icons/md';
 import { RootState } from '../../redux/store';
 import { enableEditMode } from '../../redux/actions/cart';
+import { ICartItem } from '../../interfaces/cart.interface';
 import { getUniqueCategories } from '../../helpers/categories';
 import { cartListHeader, sidebarRightPadding } from '../../styles/mixins';
 import CartListSection from './CartListSection';
@@ -28,7 +29,7 @@ function CartList() {
 	const { cart } = useSelector((state: RootState) => state.cart);
 
 	const categories = getUniqueCategories(
-		cart.items.map((item: any) => item.category)
+		cart.items.map((item: ICartItem) => item.category)
 	);
 
 	const handleEditCart = () => dispatch(enableEditMode());
@@ -43,13 +44,12 @@ function CartList() {
 					</CartIcon>
 				</div>
 
-				{/* TODO: Por cada categoriía hacer un map para mostrar los items */}
 				{categories.map((cat: string) => (
 					<CartListSection
 						key={cat}
 						category={cat}
 						items={cart.items.filter(
-							(item: any) => item.category === cat
+							(item: ICartItem) => item.category === cat
 						)}
 					/>
 				))}

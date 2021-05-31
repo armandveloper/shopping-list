@@ -1,14 +1,15 @@
+import { ICartItem } from '../../interfaces/cart.interface';
 import CartItemEdit from './CartItemEdit';
 
 interface CartEditProps {
-	items: any[];
+	items: ICartItem[];
 }
 
 function CartEdit({ items }: CartEditProps) {
 	return (
 		<ul>
-			{items.map((item: any) => (
-				<CartItemEdit key={item.name} item={item} />
+			{items.map((item: ICartItem) => (
+				<CartItemEdit key={item.item} item={item} />
 			))}
 		</ul>
 	);

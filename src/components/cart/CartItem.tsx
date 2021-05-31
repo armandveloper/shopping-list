@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { ICartItem } from '../../interfaces/cart.interface';
 import Checkbox from '../ui/Checkbox';
 import QuantityChip from '../ui/QuantityChip';
 
 interface CartItemProps {
-	item: any;
+	item: ICartItem;
 }
 
 export const StyledCartItem = styled.li`

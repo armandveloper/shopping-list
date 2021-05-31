@@ -3,6 +3,7 @@ import { MdClear } from 'react-icons/md';
 import { RootState } from '../../redux/store';
 import { closeDialog, openDialog } from '../../redux/actions/ui';
 import { exitEditMode } from '../../redux/actions/cart';
+import { ICartItem } from '../../interfaces/cart.interface';
 import { getUniqueCategories } from '../../helpers/categories';
 import { StyledCartList } from './CartList';
 import CartIcon from './CartIcon';
@@ -19,7 +20,7 @@ function CartEditList() {
 	const { unsavedCart } = useSelector((state: RootState) => state.cart);
 
 	const categories = getUniqueCategories(
-		unsavedCart.items.map((item: any) => item.category)
+		unsavedCart.items.map((item: ICartItem) => item.category)
 	);
 
 	const handleCloseDialog = () => dispatch(closeDialog());
@@ -42,13 +43,12 @@ function CartEditList() {
 						<MdClear size={24} color="currentColor" />
 					</CartIcon>
 				</div>
-				{/* TODO: Por cada categoriía hacer un map para mostrar los items */}
 				{categories.map((cat: string) => (
 					<CartListSection
 						key={cat}
 						category={cat}
 						items={unsavedCart.items.filter(
-							(item: any) => item.category === cat
+							(item: ICartItem) => item.category === cat
 						)}
 					/>
 				))}
