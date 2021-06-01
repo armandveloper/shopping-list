@@ -10,16 +10,27 @@ const initialState = {
 	items: [],
 	categories: [],
 	currentItem: null,
+	isLoadingCategories: true,
 };
 
 const shoppingReducer = (state = initialState, action: AnyAction) => {
 	switch (action.type) {
+		case types.SHOPPING_SET_CATEGORIES_LOADING:
+			return {
+				...state,
+				isLoadingCategories: action.payload,
+			};
 		case types.SHOPPING_SAVE_CATEGORIES:
-			return { ...state, categories: action.payload };
+			return {
+				...state,
+				categories: action.payload,
+				isLoadingCategories: false,
+			};
 		case types.SHOPPING_ADD_CATEGORY:
 			return {
 				...state,
 				categories: [...state.categories, action.payload],
+				isLoadingCategories: false,
 			};
 		case types.SHOPPING_ADD_ITEM: {
 			const categoryIndex = state.categories.findIndex(

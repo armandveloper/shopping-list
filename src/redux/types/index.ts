@@ -16,6 +16,8 @@ const types = {
 	AUTH_SIGNIN: '[AUTH] Signin',
 	AUTH_LOGOUT: '[AUTH] Logout',
 	AUTH_CHECKING_FINISH: '[AUTH] Checking for an authenticated user finish',
+	SHOPPING_SET_CATEGORIES_LOADING:
+		'[SHOPPING] Set the isLoadingCategories value',
 	SHOPPING_SAVE_CATEGORIES: '[SHOPPING] Save the user categories',
 	SHOPPING_ADD_CATEGORY: '[SHOPPING] Add a new category',
 	SHOPPING_SAVE_ITEMS: '[SHOPPING] Save the user items',
@@ -33,6 +35,8 @@ const types = {
 	CART_SAVE_ERROR: '[CART] Save the cart name',
 	CART_ENABLE_EDIT_MODE: '[CART] Enable the cart edit mode',
 	CART_EXIT_EDIT_MODE: '[CART] Exit the cart edit mode',
+	CART_CANCEL: '[CART] Cancel the current cart',
+	CART_COMPLETE: '[CART] Mark the current cart as completed',
 };
 
 export default types;

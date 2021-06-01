@@ -17,19 +17,22 @@ import {
 import { fetchWithToken } from '../../helpers/fetch';
 import { setIsLoading, unsetIsLoading } from './ui';
 
+const setCategoriesLoading = (isLoading: boolean = true) => ({
+	type: types.SHOPPING_SET_CATEGORIES_LOADING,
+	payload: isLoading,
+});
+
 export const getCategories: ActionCreator<
 	ThunkAction<Promise<Action | void>, ShoppingState, void, AnyAction>
 > = () => {
 	return async (dispatch: Dispatch<Action>): Promise<Action | void> => {
-		dispatch(setIsLoading());
 		try {
 			const res = await fetchWithToken('categories');
 			const data: ICategoriesResponse = await res.json();
 			if (!data.success) throw new Error(data.msg);
-			dispatch(unsetIsLoading());
 			dispatch(saveCategories(data.categories));
 		} catch (err) {
-			dispatch(unsetIsLoading());
+			dispatch(setCategoriesLoading(false));
 			toast.error(err.message);
 		}
 	};

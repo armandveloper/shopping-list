@@ -25,6 +25,7 @@ export interface ShoppingState {
 	items: IItemByCategory[];
 	categories: ICategory[];
 	currentItem: IItem | null;
+	isLoadingCategories: boolean;
 }
 
 export interface CartState {
@@ -32,6 +33,7 @@ export interface CartState {
 	isLoading: boolean;
 	cart: ICart;
 	unsavedCart: ICart;
+	history: any[];
 }
 
 export interface RootState {

@@ -112,3 +112,53 @@ export const removeItem = (id: string) => ({
 	type: types.CART_REMOVE_ITEM,
 	payload: id,
 });
+
+export const startCancelCart: ActionCreator<
+	ThunkAction<Promise<Action | void>, CartState, void, AnyAction>
+> = (id: string) => {
+	return async (dispatch: Dispatch<Action>): Promise<Action | void> => {
+		dispatch(setCartLoading());
+		const url = `cart/${id}/cancel`;
+		try {
+			const res = await fetchWithToken(url, {}, 'DELETE');
+			const data = await res.json();
+			if (!data.success) throw new Error(data.msg);
+			dispatch(cancelCart(data.history));
+			toast.success('Your cart has been cancelled');
+		} catch (err) {
+			toast.error(err.message);
+			dispatch(setCartLoading(false));
+		}
+	};
+};
+
+const cancelCart = (historyEntry: any) => ({
+	type: types.CART_CANCEL,
+	payload: historyEntry,
+});
+
+export const startCompleteCart: ActionCreator<
+	ThunkAction<Promise<Action | void>, CartState, void, AnyAction>
+> = (id: string) => {
+	return async (dispatch: Dispatch<Action>): Promise<Action | void> => {
+		dispatch(setCartLoading());
+		const url = `cart/${id}/complete`;
+		try {
+			const res = await fetchWithToken(url, {}, 'DELETE');
+			const data = await res.json();
+			if (!data.success) throw new Error(data.msg);
+			dispatch(completeCart(data.history));
+			toast.success(
+				'Congratulations, you have completed your shopping cart!'
+			);
+		} catch (err) {
+			toast.error(err.message);
+			dispatch(setCartLoading(false));
+		}
+	};
+};
+
+const completeCart = (historyEntry: any) => ({
+	type: types.CART_COMPLETE,
+	payload: historyEntry,
+});

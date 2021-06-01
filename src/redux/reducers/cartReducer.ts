@@ -16,6 +16,7 @@ const initialState = {
 		user: '',
 		items: [],
 	},
+	history: [],
 };
 
 const shoppingReducer = (state = initialState, action: AnyAction) => {
@@ -109,6 +110,40 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 				isLoading: false,
 				isEditMode: false,
 				unsavedCart: action.payload,
+			};
+		case types.CART_CANCEL:
+			return {
+				...state,
+				isLoading: false,
+				cart: {
+					_id: '',
+					name: '',
+					user: '',
+					items: [],
+				},
+				unsavedCart: {
+					name: 'Shopping List',
+					user: '',
+					items: [],
+				},
+				history: [...state.history, action.payload],
+			};
+		case types.CART_COMPLETE:
+			return {
+				...state,
+				isLoading: false,
+				cart: {
+					_id: '',
+					name: '',
+					user: '',
+					items: [],
+				},
+				unsavedCart: {
+					name: 'Shopping List',
+					user: action.payload.user,
+					items: [],
+				},
+				history: [...state.history, action.payload],
 			};
 		default:
 			return state;
