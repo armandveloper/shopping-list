@@ -10,6 +10,7 @@ const initialState = {
 	items: [],
 	categories: [],
 	currentItem: null,
+	isLoading: true,
 	isLoadingCategories: true,
 };
 
@@ -37,19 +38,34 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 				(cat: ICategory) => cat.category === action.payload.category
 			);
 			const items: IItemByCategory[] = [...state.items];
-			items[categoryIndex].items = [
-				...items[categoryIndex].items,
-				action.payload,
-			];
+			if (items[categoryIndex]) {
+				items[categoryIndex].items = [
+					...items[categoryIndex].items,
+					action.payload,
+				];
+				return {
+					...state,
+					items,
+				};
+			}
+			// Cuando la categoría es nueva se agrega al arreglo
 			return {
 				...state,
-				items,
+				items: [
+					...items,
+					{
+						category: action.payload.category,
+						items: [action.payload],
+					},
+				],
 			};
 		}
 
 		case types.SHOPPING_SAVE_ITEMS:
 			return {
 				...state,
+				isLoading: false,
+				isLoadingCategories: false,
 				categories: action.payload.categories,
 				items: action.payload.categories.map((cat: ICategory) => {
 					return {

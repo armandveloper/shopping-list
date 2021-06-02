@@ -163,7 +163,14 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 		case types.HISTORY_GET:
 			return {
 				...state,
-				history: { ...action.payload, isLoading: false },
+				history: {
+					total: action.payload.total,
+					history: [
+						...state.history.history,
+						...action.payload.history,
+					],
+					isLoading: false,
+				},
 			};
 		default:
 			return state;

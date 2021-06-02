@@ -1,5 +1,10 @@
 import { MdChevronRight, MdEventNote } from 'react-icons/md';
 import styled from 'styled-components';
+import { getEntryDate } from '../../helpers/date';
+
+interface HistoryEntryProps {
+	entry: any;
+}
 
 const StyledHistoryEntry = styled.div`
 	background-color: var(--color-bg-3);
@@ -9,6 +14,7 @@ const StyledHistoryEntry = styled.div`
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
+	margin-bottom: 2.8rem;
 	p {
 		margin: 0;
 		flex: 1;
@@ -49,11 +55,16 @@ const Details = styled.div`
 	}
 	.chip {
 		border: 1px solid currentColor;
-		color: var(--color-secondary);
 		border-radius: 0.8rem;
 		font-size: 1.2rem;
 		padding: 0.6rem;
 		text-align: center;
+	}
+	.chip.completed {
+		color: var(--color-secondary);
+	}
+	.chip.cancelled {
+		color: #eb5757;
 	}
 	.icon:last-of-type {
 		margin-left: auto;
@@ -94,18 +105,27 @@ const Details = styled.div`
 	}
 `;
 
-function HistoryEntry() {
+function HistoryEntry({ entry }: HistoryEntryProps) {
+	console.log(entry);
 	return (
 		<StyledHistoryEntry>
-			<p>Party Saturday night</p>
+			<p>{entry.name}</p>
 			<Details>
 				<MdEventNote
 					className="icon"
 					size={20}
 					color="rgba(255, 255, 255, 0.79)"
 				/>
-				<span className="timestamp">Mon 27.8.2020</span>
-				<span className="chip">completed</span>
+				<span className="timestamp">
+					{getEntryDate(entry.createdAt)}
+				</span>
+				<span
+					className={`chip ${
+						entry.completed ? 'completed' : 'cancelled'
+					}`}
+				>
+					{entry.completed ? 'completed' : 'cancelled'}
+				</span>
 				<MdChevronRight
 					size={30}
 					className="icon"

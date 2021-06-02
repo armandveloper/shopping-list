@@ -17,17 +17,17 @@ function HomePage() {
 
 	const ui = useSelector((state: RootState) => state.ui);
 
-	const { items, currentItem } = useSelector(
+	const { items, currentItem, isLoading } = useSelector(
 		(state: RootState) => state.shopping
 	);
 
 	const { unsavedCart } = useSelector((state: RootState) => state.cart);
 
 	useEffect(() => {
-		if (items.length === 0) {
+		if (isLoading && items.length === 0) {
 			dispatch(getItems());
 		}
-	}, [dispatch, items]);
+	}, [dispatch, isLoading, items]);
 
 	useEffect(() => {
 		if (!unsavedCart.user) {

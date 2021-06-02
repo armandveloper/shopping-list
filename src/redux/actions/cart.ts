@@ -1,8 +1,9 @@
 import { Action, ActionCreator, AnyAction, Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { toast } from 'react-toastify';
-import { RootState, CartState } from '../store';
 import types from '../types';
+import { RootState, CartState } from '../store';
+import { setIsLoading, unsetIsLoading } from './ui';
 import {
 	ICartResponse,
 	IBaseCart,
@@ -178,15 +179,18 @@ export const startGetHistory: ActionCreator<
 	): Promise<Action | void> => {
 		const { uid: user } = getState().auth;
 		const url = `history/${user}?offset=${offset}&limit=${limit}`;
+		dispatch(setIsLoading());
 		try {
 			const res = await fetchWithToken(url);
 			const data = await res.json();
 			if (!data.success) {
 				throw new Error(data.msg);
 			}
+			dispatch(unsetIsLoading());
 			dispatch(getHistory({ total: data.total, history: data.history }));
 		} catch (err) {
 			toast.error(err.message);
+			dispatch(unsetIsLoading());
 			dispatch(setLoadingHistory(false));
 		}
 	};

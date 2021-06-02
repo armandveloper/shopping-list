@@ -105,6 +105,7 @@ export const createItem: ActionCreator<
 		} catch (err) {
 			dispatch(unsetIsLoading());
 			toast.error(err.message);
+			console.log(err);
 		}
 	};
 };

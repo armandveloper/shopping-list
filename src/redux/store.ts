@@ -25,6 +25,7 @@ export interface ShoppingState {
 	items: IItemByCategory[];
 	categories: ICategory[];
 	currentItem: IItem | null;
+	isLoading: boolean;
 	isLoadingCategories: boolean;
 }
 
