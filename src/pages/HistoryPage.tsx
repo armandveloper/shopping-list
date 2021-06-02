@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { RootState } from '../redux/store';
 import { getCategories } from '../redux/actions/shopping';
-import { startGetCart } from '../redux/actions/cart';
+import { startGetCart, startGetHistory } from '../redux/actions/cart';
 import Sidebar from '../components/layout/Sidebar';
 import ContentLayout from '../components/layout/ContentLayout';
+import History from '../components/history/History';
 import CartSidebar from '../components/cart/CartSidebar';
 import AddItem from '../components/shopping/AddItem';
 
@@ -17,7 +20,9 @@ function HistoryPage() {
 		(state: RootState) => state.shopping
 	);
 
-	const { unsavedCart } = useSelector((state: RootState) => state.cart);
+	const { unsavedCart, history } = useSelector(
+		(state: RootState) => state.cart
+	);
 
 	useEffect(() => {
 		if (isLoadingCategories) {
@@ -31,17 +36,24 @@ function HistoryPage() {
 		}
 	}, [dispatch, unsavedCart.user]);
 
+	useEffect(() => {
+		if (history.isLoading && history.history.length === 0) {
+			dispatch(startGetHistory());
+		}
+	}, [dispatch, history]);
+
 	return (
-		<div className="layout">
-			<Sidebar />
-			<ContentLayout>
-				<div>
-					<h2>History main content</h2>
-				</div>
-				<CartSidebar />
-				<AddItem show={ui.showAddItem} />
-			</ContentLayout>
-		</div>
+		<>
+			<ToastContainer />
+			<div className="layout">
+				<Sidebar />
+				<ContentLayout>
+					<History />
+					<CartSidebar />
+					<AddItem show={ui.showAddItem} />
+				</ContentLayout>
+			</div>
+		</>
 	);
 }
 

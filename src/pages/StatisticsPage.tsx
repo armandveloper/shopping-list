@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { RootState } from '../redux/store';
 import { getCategories } from '../redux/actions/shopping';
 import { startGetCart } from '../redux/actions/cart';
@@ -32,16 +34,19 @@ function StatisticsPage() {
 	}, [dispatch, unsavedCart.user]);
 
 	return (
-		<div className="layout">
-			<Sidebar />
-			<ContentLayout>
-				<div>
-					<h2>Statistics main content</h2>
-				</div>
-				<CartSidebar />
-				<AddItem show={ui.showAddItem} />
-			</ContentLayout>
-		</div>
+		<>
+			<ToastContainer />
+			<div className="layout">
+				<Sidebar />
+				<ContentLayout>
+					<div>
+						<h2>Statistics main content</h2>
+					</div>
+					<CartSidebar />
+					<AddItem show={ui.showAddItem} />
+				</ContentLayout>
+			</div>
+		</>
 	);
 }
 

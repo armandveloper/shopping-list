@@ -33,7 +33,11 @@ export interface CartState {
 	isLoading: boolean;
 	cart: ICart;
 	unsavedCart: ICart;
-	history: any[];
+	history: {
+		total: number;
+		history: [];
+		isLoading: boolean;
+	};
 }
 
 export interface RootState {

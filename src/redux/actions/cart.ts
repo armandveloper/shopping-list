@@ -11,7 +11,7 @@ import {
 } from '../../interfaces/cart.interface';
 import { fetchWithToken } from '../../helpers/fetch';
 
-const setCartLoading = (isLoading: boolean = true) => ({
+const setLoadingCart = (isLoading: boolean = true) => ({
 	type: types.CART_SET_LOADING,
 	payload: isLoading,
 });
@@ -32,7 +32,7 @@ export const startGetCart: ActionCreator<
 		getState
 	): Promise<Action | void> => {
 		const { uid: user } = getState().auth;
-		dispatch(setCartLoading());
+		dispatch(setLoadingCart());
 		const url = id ? `cart/${id}` : 'cart';
 		try {
 			const res = await fetchWithToken(url);
@@ -67,7 +67,7 @@ export const startSaveCart: ActionCreator<
 	ThunkAction<Promise<Action | void>, CartState, void, AnyAction>
 > = (cart: IBaseCart) => {
 	return async (dispatch: Dispatch<Action>): Promise<Action | void> => {
-		dispatch(setCartLoading());
+		dispatch(setLoadingCart());
 		try {
 			const res = await fetchWithToken('cart', cart, 'POST');
 			const data: ICartResponse = await res.json();
@@ -84,7 +84,7 @@ export const startUpdateCart: ActionCreator<
 	ThunkAction<Promise<Action | void>, CartState, void, AnyAction>
 > = (cart: ICart) => {
 	return async (dispatch: Dispatch<Action>): Promise<Action | void> => {
-		dispatch(setCartLoading());
+		dispatch(setLoadingCart());
 		const url = `cart/${cart._id}`;
 		try {
 			const res = await fetchWithToken(url, cart, 'PUT');
@@ -117,7 +117,7 @@ export const startCancelCart: ActionCreator<
 	ThunkAction<Promise<Action | void>, CartState, void, AnyAction>
 > = (id: string) => {
 	return async (dispatch: Dispatch<Action>): Promise<Action | void> => {
-		dispatch(setCartLoading());
+		dispatch(setLoadingCart());
 		const url = `cart/${id}/cancel`;
 		try {
 			const res = await fetchWithToken(url, {}, 'DELETE');
@@ -127,7 +127,7 @@ export const startCancelCart: ActionCreator<
 			toast.success('Your cart has been cancelled');
 		} catch (err) {
 			toast.error(err.message);
-			dispatch(setCartLoading(false));
+			dispatch(setLoadingCart(false));
 		}
 	};
 };
@@ -141,7 +141,7 @@ export const startCompleteCart: ActionCreator<
 	ThunkAction<Promise<Action | void>, CartState, void, AnyAction>
 > = (id: string) => {
 	return async (dispatch: Dispatch<Action>): Promise<Action | void> => {
-		dispatch(setCartLoading());
+		dispatch(setLoadingCart());
 		const url = `cart/${id}/complete`;
 		try {
 			const res = await fetchWithToken(url, {}, 'DELETE');
@@ -153,7 +153,7 @@ export const startCompleteCart: ActionCreator<
 			);
 		} catch (err) {
 			toast.error(err.message);
-			dispatch(setCartLoading(false));
+			dispatch(setLoadingCart(false));
 		}
 	};
 };
@@ -161,4 +161,38 @@ export const startCompleteCart: ActionCreator<
 const completeCart = (historyEntry: any) => ({
 	type: types.CART_COMPLETE,
 	payload: historyEntry,
+});
+
+// History
+const setLoadingHistory = (isLoading: boolean = true) => ({
+	type: types.HISTORY_SET_LOADDING,
+	payload: isLoading,
+});
+
+export const startGetHistory: ActionCreator<
+	ThunkAction<Promise<Action | void>, RootState, void, AnyAction>
+> = (offset: number = 0, limit: number = 5) => {
+	return async (
+		dispatch: Dispatch<Action>,
+		getState
+	): Promise<Action | void> => {
+		const { uid: user } = getState().auth;
+		const url = `history/${user}?offset=${offset}&limit=${limit}`;
+		try {
+			const res = await fetchWithToken(url);
+			const data = await res.json();
+			if (!data.success) {
+				throw new Error(data.msg);
+			}
+			dispatch(getHistory({ total: data.total, history: data.history }));
+		} catch (err) {
+			toast.error(err.message);
+			dispatch(setLoadingHistory(false));
+		}
+	};
+};
+
+const getHistory = (history: any) => ({
+	type: types.HISTORY_GET,
+	payload: history,
 });

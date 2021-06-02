@@ -16,7 +16,11 @@ const initialState = {
 		user: '',
 		items: [],
 	},
-	history: [],
+	history: {
+		total: 0,
+		history: [],
+		isLoading: true,
+	},
 };
 
 const shoppingReducer = (state = initialState, action: AnyAction) => {
@@ -126,7 +130,10 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 					user: '',
 					items: [],
 				},
-				history: [...state.history, action.payload],
+				history: {
+					total: state.history.total + 1,
+					history: [...state.history.history, action.payload],
+				},
 			};
 		case types.CART_COMPLETE:
 			return {
@@ -143,7 +150,20 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 					user: action.payload.user,
 					items: [],
 				},
-				history: [...state.history, action.payload],
+				history: {
+					total: state.history.total + 1,
+					history: [...state.history.history, action.payload],
+				},
+			};
+		case types.HISTORY_SET_LOADDING:
+			return {
+				...state,
+				history: { ...state.history, isLoading: action.payload },
+			};
+		case types.HISTORY_GET:
+			return {
+				...state,
+				history: { ...action.payload, isLoading: false },
 			};
 		default:
 			return state;
