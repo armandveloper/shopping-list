@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { MdChevronRight, MdEventNote } from 'react-icons/md';
 import { IHistory } from '../../interfaces/cart.interface';
@@ -5,6 +6,7 @@ import { getEntryDate } from '../../helpers/date';
 
 interface HistoryEntryProps {
 	entry: IHistory;
+	setView: Dispatch<SetStateAction<IHistory>>;
 }
 
 const StyledHistoryEntry = styled.div`
@@ -62,10 +64,10 @@ const Details = styled.div`
 		text-align: center;
 	}
 	.chip.completed {
-		color: var(--color-secondary);
+		color: var(--color-secondary-alt);
 	}
 	.chip.cancelled {
-		color: #eb5757;
+		color: var(--color-danger-alt);
 	}
 	.icon:last-of-type {
 		margin-left: auto;
@@ -106,7 +108,7 @@ const Details = styled.div`
 	}
 `;
 
-function HistoryEntry({ entry }: HistoryEntryProps) {
+function HistoryEntry({ entry, setView }: HistoryEntryProps) {
 	console.log(entry);
 	return (
 		<StyledHistoryEntry>
@@ -133,6 +135,7 @@ function HistoryEntry({ entry }: HistoryEntryProps) {
 					cursor="pointer"
 					color="var(--color-primary)"
 					title="View Details"
+					onClick={() => setView(entry)}
 				/>
 			</Details>
 		</StyledHistoryEntry>

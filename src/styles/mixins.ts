@@ -38,3 +38,23 @@ export const cartListHeader = css`
 		justify-content: space-between;
 	}
 `;
+
+export const historyContent = css`
+	overflow-y: auto;
+	padding: 2rem 2rem 0;
+	.headline {
+		font-size: 2.6rem;
+		margin: 0 0 4rem;
+	}
+	@media (min-width: 75em) {
+		margin-top: 3rem;
+		padding: 0 9rem 1rem 8rem;
+	}
+`;
+
+export const baseItemStyles = css`
+	background-color: var(--color-bg-3);
+	border-radius: 1.2rem;
+	cursor: default;
+	padding: 1.2rem 1.6rem;
+`;

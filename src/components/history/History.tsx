@@ -1,34 +1,29 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../redux/store';
 import { IHistory } from '../../interfaces/cart.interface';
 import { startGetHistory } from '../../redux/actions/cart';
 import { getEntryMonth, getHistoryMonths } from '../../helpers/date';
+import { historyContent } from '../../styles/mixins';
 import HistoryEntry from './HistoryEntry';
 import Button from '../ui/Button';
 import Loader from '../ui/Loader';
+import HistoryView from './HistoryView';
 
 const StyledHistory = styled.div`
-	overflow-y: auto;
-	padding: 2rem 2rem 0;
-	.headline {
-		font-size: 2.6rem;
-		margin: 0 0 4rem;
-	}
+	${historyContent};
 	.month-date {
 		font-size: 1.6rem;
 		font-weight: 500;
 		margin: 0 0 1.8rem;
 		opacity: 0.79;
 	}
-	@media (min-width: 75em) {
-		margin-top: 3rem;
-		padding: 0 9rem 1rem 8rem;
-	}
 `;
 
 function History() {
+	const [detailsView, setView] = useState<IHistory>(null!);
+
 	const dispatch = useDispatch();
 
 	const { history } = useSelector((state: RootState) => state.cart);
@@ -44,6 +39,9 @@ function History() {
 		dispatch(startGetHistory(offsetRef.current));
 	};
 
+	if (detailsView)
+		return <HistoryView entry={detailsView} setView={setView} />;
+
 	return (
 		<StyledHistory>
 			<h2 className="headline">Shopping history</h2>
@@ -57,7 +55,11 @@ function History() {
 						</h3>
 						{history.history.map((entry: IHistory) =>
 							getEntryMonth(entry.createdAt) === item ? (
-								<HistoryEntry key={entry._id} entry={entry} />
+								<HistoryEntry
+									key={entry._id}
+									entry={entry}
+									setView={setView}
+								/>
 							) : null
 						)}
 					</>

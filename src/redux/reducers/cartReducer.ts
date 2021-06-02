@@ -132,7 +132,7 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 				},
 				history: {
 					total: state.history.total + 1,
-					history: [...state.history.history, action.payload],
+					history: [action.payload, ...state.history.history],
 				},
 			};
 		case types.CART_COMPLETE:
@@ -152,7 +152,7 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 				},
 				history: {
 					total: state.history.total + 1,
-					history: [...state.history.history, action.payload],
+					history: [action.payload, ...state.history.history],
 				},
 			};
 		case types.HISTORY_SET_LOADING:

@@ -7,8 +7,10 @@ const GlobalStyles = createGlobalStyle`
     --color-bg-3: #424242;
     --color-text: #fff;
     --color-primary: #F9A109;
-    --color-secondary: #56CCF2;
-    --color-danger: #EB5757;
+    --color-secondary: #0064b7;
+    --color-secondary-alt: #56CCF2;
+    --color-danger: #ba000d;
+    --color-danger-alt: #fb928d;
   }
   html {
     box-sizing: border-box;

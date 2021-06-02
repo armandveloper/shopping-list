@@ -30,7 +30,7 @@ const Field = styled.div`
 		resize: none;
 	}
 	.error {
-		color: #fb928d;
+		color: var(--color-danger-alt);
 		margin-top: 1rem;
 		margin-bottom: 0;
 	}

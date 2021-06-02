@@ -6,6 +6,7 @@ import { showAddItem, showItemInfo } from '../../redux/actions/ui';
 import { showItem } from '../../redux/actions/shopping';
 import { addItemToCart } from '../../redux/actions/cart';
 import { IItem } from '../../interfaces/shopping.interface';
+import { baseItemStyles } from '../../styles/mixins';
 import ItemButton from './ItemButton';
 
 interface ShoppingItemProps {
@@ -13,10 +14,7 @@ interface ShoppingItemProps {
 }
 
 const StyledShoppingItem = styled.div`
-	background-color: var(--color-bg-3);
-	border-radius: 1.2rem;
-	cursor: default;
-	padding: 1.2rem 1.6rem;
+	${baseItemStyles};
 	display: grid;
 	grid-template-columns: 1fr repeat(2, 2.4rem);
 	gap: 0.8rem;
