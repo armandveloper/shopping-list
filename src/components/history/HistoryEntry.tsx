@@ -1,9 +1,10 @@
-import { MdChevronRight, MdEventNote } from 'react-icons/md';
 import styled from 'styled-components';
+import { MdChevronRight, MdEventNote } from 'react-icons/md';
+import { IHistory } from '../../interfaces/cart.interface';
 import { getEntryDate } from '../../helpers/date';
 
 interface HistoryEntryProps {
-	entry: any;
+	entry: IHistory;
 }
 
 const StyledHistoryEntry = styled.div`

@@ -38,7 +38,7 @@ const types = {
 	CART_CANCEL: '[CART] Cancel the current cart',
 	CART_COMPLETE: '[CART] Mark the current cart as completed',
 	HISTORY_GET: '[HISTORY] Get the user carts history',
-	HISTORY_SET_LOADDING: '[HISTORY] Set the isLoadingHistory value',
+	HISTORY_SET_LOADING: '[HISTORY] Set the isLoadingHistory value',
 };
 
 export default types;

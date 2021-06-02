@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../redux/store';
+import { IHistory } from '../../interfaces/cart.interface';
 import { startGetHistory } from '../../redux/actions/cart';
 import { getEntryMonth, getHistoryMonths } from '../../helpers/date';
 import HistoryEntry from './HistoryEntry';
@@ -35,7 +36,7 @@ function History() {
 	const offsetRef = useRef<number>(0);
 
 	const historyMonths = getHistoryMonths(
-		history.history.map((entry: any) => entry.createdAt)
+		history.history.map((entry: IHistory) => entry.createdAt)
 	);
 
 	const loadHistory = () => {
@@ -49,12 +50,12 @@ function History() {
 			{history.isLoading ? (
 				<Loader center={true} size="lg" />
 			) : (
-				historyMonths.map((item: any) => (
+				historyMonths.map((item: string) => (
 					<>
 						<h3 key={item} className="month-date">
 							{item}
 						</h3>
-						{history.history.map((entry: any) =>
+						{history.history.map((entry: IHistory) =>
 							getEntryMonth(entry.createdAt) === item ? (
 								<HistoryEntry key={entry._id} entry={entry} />
 							) : null

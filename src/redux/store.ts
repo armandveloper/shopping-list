@@ -5,7 +5,7 @@ import {
 	IItem,
 	IItemByCategory,
 } from '../interfaces/shopping.interface';
-import { ICart } from '../interfaces/cart.interface';
+import { ICart, IHistory } from '../interfaces/cart.interface';
 import { rootReducer } from './reducers/rootReducer';
 
 export interface UiState {
@@ -36,7 +36,7 @@ export interface CartState {
 	unsavedCart: ICart;
 	history: {
 		total: number;
-		history: [];
+		history: IHistory[];
 		isLoading: boolean;
 	};
 }

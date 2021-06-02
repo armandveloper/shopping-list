@@ -155,7 +155,7 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 					history: [...state.history.history, action.payload],
 				},
 			};
-		case types.HISTORY_SET_LOADDING:
+		case types.HISTORY_SET_LOADING:
 			return {
 				...state,
 				history: { ...state.history, isLoading: action.payload },

@@ -9,6 +9,9 @@ import {
 	IBaseCart,
 	ICart,
 	IBaseCartItem,
+	IDeleteCartResponse,
+	IHistory,
+	IGetHistoryResponse,
 } from '../../interfaces/cart.interface';
 import { fetchWithToken } from '../../helpers/fetch';
 
@@ -122,7 +125,7 @@ export const startCancelCart: ActionCreator<
 		const url = `cart/${id}/cancel`;
 		try {
 			const res = await fetchWithToken(url, {}, 'DELETE');
-			const data = await res.json();
+			const data: IDeleteCartResponse = await res.json();
 			if (!data.success) throw new Error(data.msg);
 			dispatch(cancelCart(data.history));
 			toast.success('Your cart has been cancelled');
@@ -133,7 +136,7 @@ export const startCancelCart: ActionCreator<
 	};
 };
 
-const cancelCart = (historyEntry: any) => ({
+const cancelCart = (historyEntry: IHistory) => ({
 	type: types.CART_CANCEL,
 	payload: historyEntry,
 });
@@ -146,7 +149,7 @@ export const startCompleteCart: ActionCreator<
 		const url = `cart/${id}/complete`;
 		try {
 			const res = await fetchWithToken(url, {}, 'DELETE');
-			const data = await res.json();
+			const data: IDeleteCartResponse = await res.json();
 			if (!data.success) throw new Error(data.msg);
 			dispatch(completeCart(data.history));
 			toast.success(
@@ -159,14 +162,14 @@ export const startCompleteCart: ActionCreator<
 	};
 };
 
-const completeCart = (historyEntry: any) => ({
+const completeCart = (historyEntry: IHistory) => ({
 	type: types.CART_COMPLETE,
 	payload: historyEntry,
 });
 
 // History
 const setLoadingHistory = (isLoading: boolean = true) => ({
-	type: types.HISTORY_SET_LOADDING,
+	type: types.HISTORY_SET_LOADING,
 	payload: isLoading,
 });
 
@@ -182,7 +185,7 @@ export const startGetHistory: ActionCreator<
 		dispatch(setIsLoading());
 		try {
 			const res = await fetchWithToken(url);
-			const data = await res.json();
+			const data: IGetHistoryResponse = await res.json();
 			if (!data.success) {
 				throw new Error(data.msg);
 			}
@@ -196,7 +199,7 @@ export const startGetHistory: ActionCreator<
 	};
 };
 
-const getHistory = (history: any) => ({
+const getHistory = (history: { total: number; history: IHistory[] }) => ({
 	type: types.HISTORY_GET,
 	payload: history,
 });
