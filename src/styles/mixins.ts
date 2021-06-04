@@ -1,12 +1,18 @@
 import { css } from 'styled-components';
 
+export const scrollbarY = css`
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-primary) var(--color-bg-2);
+`;
+
 export const sidebarRightStyles = css`
 	grid-column: 2;
 	grid-row: 1;
 	background-color: var(--color-bg-2);
 	height: 100%;
 	width: 100%;
-	overflow-y: auto;
+	${scrollbarY};
 	transition: transform 0.4s ease;
 	@media (max-width: 56.24em) {
 		&.show {
@@ -39,16 +45,20 @@ export const cartListHeader = css`
 	}
 `;
 
-export const historyContent = css`
-	overflow-y: auto;
+export const mainContent = css`
 	padding: 2rem 2rem 0;
-	.headline {
-		font-size: 2.6rem;
-		margin: 0 0 4rem;
-	}
 	@media (min-width: 75em) {
 		margin-top: 3rem;
 		padding: 0 9rem 1rem 8rem;
+	}
+`;
+
+export const historyContent = css`
+	${scrollbarY};
+	${mainContent};
+	.headline {
+		font-size: 2.6rem;
+		margin: 0 0 4rem;
 	}
 `;
 

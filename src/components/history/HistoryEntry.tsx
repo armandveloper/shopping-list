@@ -109,7 +109,6 @@ const Details = styled.div`
 `;
 
 function HistoryEntry({ entry, setView }: HistoryEntryProps) {
-	console.log(entry);
 	return (
 		<StyledHistoryEntry>
 			<p>{entry.name}</p>

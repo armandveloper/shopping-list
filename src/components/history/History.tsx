@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../redux/store';
@@ -49,20 +49,19 @@ function History() {
 				<Loader center={true} size="lg" />
 			) : (
 				historyMonths.map((item: string) => (
-					<>
-						<h3 key={item} className="month-date">
-							{item}
-						</h3>
-						{history.history.map((entry: IHistory) =>
-							getEntryMonth(entry.createdAt) === item ? (
-								<HistoryEntry
-									key={entry._id}
-									entry={entry}
-									setView={setView}
-								/>
-							) : null
+					<Fragment key={item}>
+						<h3 className="month-date">{item}</h3>
+						{history.history.map(
+							(entry: IHistory) =>
+								getEntryMonth(entry.createdAt) === item && (
+									<HistoryEntry
+										key={entry._id}
+										entry={entry}
+										setView={setView}
+									/>
+								)
 						)}
-					</>
+					</Fragment>
 				))
 			)}
 

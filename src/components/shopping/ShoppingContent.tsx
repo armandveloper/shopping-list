@@ -2,15 +2,14 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { IItemByCategory } from '../../interfaces/shopping.interface';
 import { RootState } from '../../redux/store';
+import { scrollbarY } from '../../styles/mixins';
 import Header from '../layout/Header';
 import Loader from '../ui/Loader';
 import ShoppingItemsHolder from './ShoppingItemsHolder';
 import ShoppingSection from './ShoppingSection';
 
 const StyledShoppingContent = styled.div`
-	overflow-y: auto;
-	scrollbar-width: thin;
-	scrollbar-color: var(--color-primary) var(--color-bg-2);
+	${scrollbarY};
 	.space {
 		margin-top: 4rem;
 	}

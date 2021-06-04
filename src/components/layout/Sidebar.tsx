@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { MdShoppingCart } from 'react-icons/md';
 import Nav from '../ui/Nav';
 import logo from '../../assets/img/logo.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleSidebarRight } from '../../redux/actions/ui';
+import { RootState } from '../../redux/store';
 
 const StyledSidebar = styled.aside`
 	background-color: var(--color-bg-2);
@@ -37,10 +38,23 @@ const CartButton = styled.button`
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	.badge {
+		background-color: var(--color-danger);
+		border-radius: 0.4rem;
+		color: #fff;
+		font-size: 1.2rem;
+		padding: 0.25rem 0.65rem;
+		text-align: center;
+		position: absolute;
+		top: -0.5rem;
+		right: -0.5rem;
+	}
 `;
 
 function Sidebar() {
 	const dispatch = useDispatch();
+
+	const { cart } = useSelector((state: RootState) => state.cart);
 
 	const handleToggleSidebar = () => {
 		dispatch(toggleSidebarRight());
@@ -54,6 +68,9 @@ function Sidebar() {
 			<Nav />
 			<CartButton onClick={handleToggleSidebar}>
 				<MdShoppingCart size={20} color="#fff" />
+				{cart.items.length > 0 && (
+					<span className="badge">{cart.items.length}</span>
+				)}
 			</CartButton>
 		</StyledSidebar>
 	);

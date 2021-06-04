@@ -64,3 +64,9 @@ export const spin = keyframes`
     transform: rotate(360deg);
   }
 `;
+
+export const progressAnimation = keyframes`
+  from {
+    width: 0;
+  }
+`;

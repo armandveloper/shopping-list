@@ -9,7 +9,7 @@ interface HistoryItemProps {
 const StyledItem = styled.li`
 	${baseItemStyles};
 	display: grid;
-	grid-template-columns: 1fr auto;
+	grid-template-columns: 1fr max-content;
 	gap: 1rem;
 	.quantity {
 		color: var(--color-primary);

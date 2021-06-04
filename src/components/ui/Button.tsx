@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../../styles/theme';
 
 interface ButtonProps {
 	color?: 'primary' | 'secondary' | 'danger' | 'black';
@@ -6,13 +7,6 @@ interface ButtonProps {
 	roundedLeft?: boolean;
 	full?: boolean;
 }
-
-const colors = {
-	primary: 'var(--color-primary)',
-	secondary: 'var(--color-secondary)',
-	danger: 'var(--color-danger)',
-	black: 'var(--color-bg)',
-};
 
 const Button = styled.button.attrs((props) => ({
 	type: props.type || 'button',

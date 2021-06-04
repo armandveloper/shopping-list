@@ -7,6 +7,7 @@ import { getCategories } from '../redux/actions/shopping';
 import { startGetCart } from '../redux/actions/cart';
 import Sidebar from '../components/layout/Sidebar';
 import ContentLayout from '../components/layout/ContentLayout';
+import Statistics from '../components/statistics/Statistics';
 import CartSidebar from '../components/cart/CartSidebar';
 import AddItem from '../components/shopping/AddItem';
 
@@ -39,9 +40,7 @@ function StatisticsPage() {
 			<div className="layout">
 				<Sidebar />
 				<ContentLayout>
-					<div>
-						<h2>Statistics main content</h2>
-					</div>
+					<Statistics />
 					<CartSidebar />
 					<AddItem show={ui.showAddItem} />
 				</ContentLayout>
