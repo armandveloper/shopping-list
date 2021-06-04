@@ -1,9 +1,19 @@
+import { Fragment, lazy, Suspense, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { mainContent } from '../../styles/mixins';
+import { IStatisticsItem } from '../../interfaces/statistics.interface';
+import { startGetStatistics } from '../../redux/actions/statistics';
+import { RootState } from '../../redux/store';
+import { mainContent, scrollbarY } from '../../styles/mixins';
+import Loader from '../ui/Loader';
 import Progress from './Progress';
+
+const Chart = lazy(() => import('./Chart'));
 
 const StyledStatistics = styled.div`
 	${mainContent};
+	${scrollbarY};
+	padding-bottom: 2rem;
 	.headline {
 		font-size: 2rem;
 		font-weight: 500;
@@ -43,44 +53,76 @@ const StyledStatistics = styled.div`
 `;
 
 function Statistics() {
+	const dispatch = useDispatch();
+
+	const { isLoading, total, topItems, topCategories, monthlySummary } =
+		useSelector((state: RootState) => state.statistics);
+
+	useEffect(() => {
+		if (isLoading) {
+			dispatch(startGetStatistics());
+		}
+	}, [dispatch, isLoading]);
+
 	return (
 		<StyledStatistics>
-			<div className="grid">
-				<section>
-					<h2 className="headline">Top Items</h2>
-					<p>
-						Banana <span>20%</span>
-					</p>
-					<Progress color="primary" progress={20} />
-					<p>
-						Rice <span>20%</span>
-					</p>
-					<Progress color="primary" progress={20} />
-					<p>
-						Chicken 1Kg <span>20%</span>
-					</p>
-					<Progress color="primary" progress={20} />
-				</section>
-				<section>
-					<h2 className="headline">Top Categories</h2>
+			{isLoading ? (
+				<Loader size="lg" center={true} />
+			) : (
+				<>
+					<div className="grid">
+						<section>
+							<h2 className="headline">Top Items</h2>
+							{topItems.map((item: IStatisticsItem) => {
+								const percent = Math.round(
+									(item.count / total[0].count) * 100
+								);
+								return (
+									<Fragment key={item._id}>
+										<p>
+											{item._id} <span>{percent}%</span>
+										</p>
+										<Progress
+											color="primary"
+											progress={percent}
+										/>
+									</Fragment>
+								);
+							})}
+							{topItems.length === 0 && <p>No data to show</p>}
+						</section>
+						<section>
+							<h2 className="headline">Top Categories</h2>
 
-					<p>
-						Fruit and vegetables <span>20%</span>
-					</p>
-					<Progress color="secondary" progress={80} />
-					<p>
-						MEat and Fish <span>20%</span>
-					</p>
-					<Progress color="secondary" progress={80} />
-					<p>
-						Petsh <span>20%</span>
-					</p>
-					<Progress color="secondary" progress={80} />
-				</section>
-			</div>
-			<section>
-				<h2 className="headline">Monthly Summary</h2>
-			</section>
+							{topCategories.map((cat: IStatisticsItem) => {
+								const percent = Math.round(
+									(cat.count / total[0].count) * 100
+								);
+								return (
+									<Fragment key={cat._id}>
+										<p>
+											{cat._id} <span>{percent}%</span>
+										</p>
+										<Progress
+											color="secondary"
+											progress={percent}
+										/>
+									</Fragment>
+								);
+							})}
+							{topCategories.length === 0 && (
+								<p>No data to show</p>
+							)}
+						</section>
+					</div>
+					<section>
+						<h2 className="headline">Monthly Summary</h2>
+						<Suspense fallback={<Loader center={true} size="lg" />}>
+							<Chart stats={monthlySummary} />
+						</Suspense>
+					</section>
+				</>
+			)}
 		</StyledStatistics>
 	);
 }

@@ -7,11 +7,15 @@ const StyledCartNoItems = styled.div`
 	display: flex;
 	justify-content: center;
 	background: url(${shopping}) center bottom 4rem / 24.5rem 20rem no-repeat;
+
+	@media (min-width: 37.5em) and (max-width: 48em) {
+		background: none;
+	}
+
 	@media (min-width: 56.25em) {
 		padding-top: 0;
 		align-items: center;
 	}
-
 	p {
 		font-size: 2rem;
 		font-weight: 700;

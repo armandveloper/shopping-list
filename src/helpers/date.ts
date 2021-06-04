@@ -37,3 +37,5 @@ export const getHistoryMonths = (timestamp: Date[]) => {
 	const months: string[] = timestamp.map((item: Date) => getEntryMonth(item));
 	return [...Array.from(new Set<string>(months))];
 };
+
+export const getMonthFromNumber = (month: number) => months[month - 1];

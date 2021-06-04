@@ -6,6 +6,7 @@ import {
 	IItemByCategory,
 } from '../interfaces/shopping.interface';
 import { ICart, IHistory } from '../interfaces/cart.interface';
+import { IStatisticsItem } from '../interfaces/statistics.interface';
 import { rootReducer } from './reducers/rootReducer';
 
 export interface UiState {
@@ -29,6 +30,14 @@ export interface ShoppingState {
 	isLoadingCategories: boolean;
 }
 
+export interface StatisticsState {
+	isLoading: boolean;
+	total: IStatisticsItem[];
+	topItems: IStatisticsItem[];
+	topCategories: IStatisticsItem[];
+	monthlySummary: IStatisticsItem[];
+}
+
 export interface CartState {
 	isEditMode: boolean;
 	isLoading: boolean;
@@ -46,6 +55,7 @@ export interface RootState {
 	auth: AuthState;
 	shopping: ShoppingState;
 	cart: CartState;
+	statistics: StatisticsState;
 }
 
 const composeEnhancers =
