@@ -13,7 +13,7 @@ interface ShoppingItemProps {
 	item: IItem;
 }
 
-const StyledShoppingItem = styled.div`
+const StyledShoppingItem = styled.li`
 	${baseItemStyles};
 	display: grid;
 	grid-template-columns: 1fr repeat(2, 2.4rem);

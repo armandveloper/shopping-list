@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { IItem, IItemByCategory } from '../../interfaces/shopping.interface';
 import SectionList from '../layout/SectionList';
-import AddItemButton from './AddItemButton';
 import ShoppingItem from './ShoppingItem';
 
 const StyledShoppingSection = styled.section`
@@ -22,9 +21,6 @@ function ShoppingSection({ category, items }: IItemByCategory) {
 				{items.map((item: IItem) => (
 					<ShoppingItem key={item._id} item={item} />
 				))}
-				{items.length === 0 && (
-					<AddItemButton>Add an item</AddItemButton>
-				)}
 			</SectionList>
 		</StyledShoppingSection>
 	);

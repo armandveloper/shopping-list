@@ -39,10 +39,6 @@ function Select({ value, options, onChange }: SelectProps) {
 	}, [value, state.value]);
 
 	const handleChange = (newValue: any, actionMeta: any) => {
-		console.group('Value Changed');
-		console.log(newValue);
-		console.log(`action: ${actionMeta.action}`);
-		console.groupEnd();
 		onChange(newValue?.label || '');
 		setState({ ...state, value: newValue });
 	};

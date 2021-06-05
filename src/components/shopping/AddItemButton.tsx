@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { MdAdd } from 'react-icons/md';
-import ItemButton from './ItemButton';
+import { showAddItem } from '../../redux/actions/ui';
 
 interface AddItemButtonProps {
 	children: ReactNode;
@@ -25,12 +26,13 @@ const StyledAddItemButton = styled.button`
 `;
 
 function AddItemButton({ children }: AddItemButtonProps) {
+	const dispatch = useDispatch();
+	const handleClick = () => dispatch(showAddItem());
+
 	return (
-		<StyledAddItemButton>
+		<StyledAddItemButton onClick={handleClick}>
 			{children}
-			<ItemButton type="button" title="Add a new item to the category">
-				<MdAdd size={24} color="currentColor" />
-			</ItemButton>
+			<MdAdd size={24} color="currentColor" cursor="pointer" />
 		</StyledAddItemButton>
 	);
 }

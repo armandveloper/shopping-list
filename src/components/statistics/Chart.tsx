@@ -16,7 +16,6 @@ interface ChartProps {
 }
 
 function Chart({ stats }: ChartProps) {
-	console.log(stats);
 
 	const month = new Date().getMonth(),
 		start = month <= 5 ? 0 : 6,

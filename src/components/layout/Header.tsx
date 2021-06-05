@@ -12,9 +12,12 @@ const StyledHeader = styled.header`
 `;
 
 const Title = styled.h1`
-	font-size: 2.6rem;
+	font-size: 2rem;
 	font-weight: 500;
 	margin: 0;
+	@media (min-width: 87.5em) {
+		font-size: 2.6rem;
+	}
 	.hightlight {
 		color: var(--color-primary);
 		font-weight: 700;

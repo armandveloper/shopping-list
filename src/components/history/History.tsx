@@ -78,6 +78,9 @@ function History() {
 					)}
 				</Button>
 			)}
+			{!history.isLoading && history.total === 0 && (
+				<h3>History is empty</h3>
+			)}
 		</StyledHistory>
 	);
 }

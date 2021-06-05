@@ -63,10 +63,13 @@ function Sidebar() {
 	return (
 		<StyledSidebar>
 			<Link to="/" aria-label="Go Home">
-				<Logo src={logo} width="40" height="40" />
+				<Logo alt="Shoppingify" src={logo} width="40" height="40" />
 			</Link>
 			<Nav />
-			<CartButton onClick={handleToggleSidebar}>
+			<CartButton
+				onClick={handleToggleSidebar}
+				aria-label="Toggle cart sidebar"
+			>
 				<MdShoppingCart size={20} color="#fff" />
 				{cart.items.length > 0 && (
 					<span className="badge">{cart.items.length}</span>

@@ -1,8 +1,11 @@
+import { SyntheticEvent, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
+import { searchItems } from '../../redux/actions/shopping';
 
 const StyledSearch = styled.form`
-	flex-basis: 27.5rem;
+	flex: 0 0 18rem;
 	background-color: var(--color-bg-3);
 	border-radius: 1.2rem;
 	height: 5rem;
@@ -10,6 +13,9 @@ const StyledSearch = styled.form`
 	display: grid;
 	grid-template-columns: 2rem 2rem 1fr;
 	align-items: center;
+	@media (min-width: 87.5em) {
+		flex-basis: 27.5rem;
+	}
 `;
 
 const SearchButton = styled.button`
@@ -49,8 +55,26 @@ const Input = styled.input`
 `;
 
 function Search() {
+	const [term, setTerm] = useState('');
+
+	const dispatch = useDispatch();
+
+	const handleSearch = (e: SyntheticEvent) => {
+		e.preventDefault();
+		if (!term) return;
+		dispatch(searchItems(term));
+	};
+
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			dispatch(searchItems(term));
+		}, 500);
+
+		return () => clearTimeout(timeout);
+	}, [term, dispatch]);
+
 	return (
-		<StyledSearch>
+		<StyledSearch onSubmit={handleSearch}>
 			<SearchButton type="submit" title="Search">
 				<MdSearch size={20} color="currentCOlor" />
 			</SearchButton>
@@ -58,6 +82,8 @@ function Search() {
 				type="text"
 				placeholder="search item"
 				aria-label="Search Item"
+				value={term}
+				onChange={(e) => setTerm(e.target.value)}
 			/>
 		</StyledSearch>
 	);

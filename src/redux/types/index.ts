@@ -26,6 +26,7 @@ const types = {
 	SHOPPING_HIDE_ITEM: '[SHOPPING] Hide the info of an item',
 	SHOPPING_UPDATE_ITEM: '[SHOPPING] Update an item',
 	SHOPPING_DELETE_ITEM: '[SHOPPING] Delete an item',
+	SHOPPING_SEARCH_ITEMS: '[SHOPPING] Search for items',
 	CART_SET_LOADING: '[CART] Set the cart loading state',
 	CART_GET: '[CART] Get the current user cart',
 	CART_ADD_ITEM: '[CART] Add an item to cart',

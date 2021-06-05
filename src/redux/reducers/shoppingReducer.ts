@@ -10,6 +10,7 @@ const initialState = {
 	items: [],
 	categories: [],
 	currentItem: null,
+	searchTerm: '',
 	isLoading: true,
 	isLoadingCategories: true,
 };
@@ -32,6 +33,11 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 				...state,
 				categories: [...state.categories, action.payload],
 				isLoadingCategories: false,
+			};
+		case types.SHOPPING_SEARCH_ITEMS:
+			return {
+				...state,
+				searchTerm: action.payload,
 			};
 		case types.SHOPPING_ADD_ITEM: {
 			const categoryIndex = state.categories.findIndex(
@@ -61,21 +67,27 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 			};
 		}
 
-		case types.SHOPPING_SAVE_ITEMS:
+		case types.SHOPPING_SAVE_ITEMS: {
+			const newItems = action.payload.categories.map((cat: ICategory) => {
+				return {
+					category: cat.category,
+					items: action.payload.items.filter(
+						(item: IItem) => item.category === cat.category
+					),
+				};
+			});
+			const items = newItems.filter(
+				(item: IItemByCategory) => item.items.length > 0
+			);
 			return {
 				...state,
 				isLoading: false,
 				isLoadingCategories: false,
 				categories: action.payload.categories,
-				items: action.payload.categories.map((cat: ICategory) => {
-					return {
-						category: cat.category,
-						items: action.payload.items.filter(
-							(item: IItem) => item.category === cat.category
-						),
-					};
-				}),
+				items,
 			};
+		}
+
 		case types.SHOPPING_SHOW_ITEM:
 			return {
 				...state,
@@ -101,20 +113,29 @@ const shoppingReducer = (state = initialState, action: AnyAction) => {
 					};
 				}),
 			};
-		case types.SHOPPING_DELETE_ITEM:
+		case types.SHOPPING_DELETE_ITEM: {
+			// Elimina el item dentro de la categoría
+			const newItems = state.items.map((cat: IItemByCategory) => {
+				if (action.payload.category !== cat.category) return cat;
+				return {
+					category: cat.category,
+					items: cat.items.filter(
+						(item: IItem) => item._id !== action.payload._id
+					),
+				};
+			});
+
+			// Elimina la categoría si ya no tiene items
+			const items = newItems.filter(
+				(item: IItemByCategory) => item.items.length > 0
+			);
 			return {
 				...state,
-				items: state.items.map((cat: IItemByCategory) => {
-					if (action.payload.category !== cat.category) return cat;
-					return {
-						category: cat.category,
-						items: cat.items.filter(
-							(item: IItem) => item._id !== action.payload._id
-						),
-					};
-				}),
+				items,
 				currentItem: null,
 			};
+		}
+
 		default:
 			return state;
 	}

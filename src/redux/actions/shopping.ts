@@ -177,3 +177,8 @@ const deleteItem = (item: IItem) => ({
 	type: types.SHOPPING_DELETE_ITEM,
 	payload: item,
 });
+
+export const searchItems = (term: string = '') => ({
+	type: types.SHOPPING_SEARCH_ITEMS,
+	payload: term,
+});
