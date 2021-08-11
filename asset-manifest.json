@@ -7,14 +7,14 @@
     "static/js/1.f03c91fb.chunk.js.map": "/shopping-list/static/js/1.f03c91fb.chunk.js.map",
     "static/js/2.0d603cf8.chunk.js": "/shopping-list/static/js/2.0d603cf8.chunk.js",
     "static/js/2.0d603cf8.chunk.js.map": "/shopping-list/static/js/2.0d603cf8.chunk.js.map",
-    "main.js": "/shopping-list/static/js/main.6ec6472b.chunk.js",
-    "main.js.map": "/shopping-list/static/js/main.6ec6472b.chunk.js.map",
+    "main.js": "/shopping-list/static/js/main.97a1f264.chunk.js",
+    "main.js.map": "/shopping-list/static/js/main.97a1f264.chunk.js.map",
     "runtime-main.js": "/shopping-list/static/js/runtime-main.44b26e6e.js",
     "runtime-main.js.map": "/shopping-list/static/js/runtime-main.44b26e6e.js.map",
     "static/js/5.d3aea092.chunk.js": "/shopping-list/static/js/5.d3aea092.chunk.js",
     "static/js/5.d3aea092.chunk.js.map": "/shopping-list/static/js/5.d3aea092.chunk.js.map",
-    "static/js/6.186fec57.chunk.js": "/shopping-list/static/js/6.186fec57.chunk.js",
-    "static/js/6.186fec57.chunk.js.map": "/shopping-list/static/js/6.186fec57.chunk.js.map",
+    "static/js/6.72fd3003.chunk.js": "/shopping-list/static/js/6.72fd3003.chunk.js",
+    "static/js/6.72fd3003.chunk.js.map": "/shopping-list/static/js/6.72fd3003.chunk.js.map",
     "static/js/7.2208a4b6.chunk.js": "/shopping-list/static/js/7.2208a4b6.chunk.js",
     "static/js/7.2208a4b6.chunk.js.map": "/shopping-list/static/js/7.2208a4b6.chunk.js.map",
     "static/js/8.b637c961.chunk.js": "/shopping-list/static/js/8.b637c961.chunk.js",
@@ -32,14 +32,14 @@
     "index.html": "/shopping-list/index.html",
     "static/css/0.97503911.chunk.css.map": "/shopping-list/static/css/0.97503911.chunk.css.map",
     "static/js/5.d3aea092.chunk.js.LICENSE.txt": "/shopping-list/static/js/5.d3aea092.chunk.js.LICENSE.txt",
-    "static/js/6.186fec57.chunk.js.LICENSE.txt": "/shopping-list/static/js/6.186fec57.chunk.js.LICENSE.txt",
+    "static/js/6.72fd3003.chunk.js.LICENSE.txt": "/shopping-list/static/js/6.72fd3003.chunk.js.LICENSE.txt",
     "static/media/logo.eb09cb08.svg": "/shopping-list/static/media/logo.eb09cb08.svg",
     "static/media/shopping.2b324963.svg": "/shopping-list/static/media/shopping.2b324963.svg",
     "static/media/source.d2e572da.svg": "/shopping-list/static/media/source.d2e572da.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.44b26e6e.js",
-    "static/js/6.186fec57.chunk.js",
-    "static/js/main.6ec6472b.chunk.js"
+    "static/js/6.72fd3003.chunk.js",
+    "static/js/main.97a1f264.chunk.js"
   ]
 }
